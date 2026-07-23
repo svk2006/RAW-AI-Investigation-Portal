@@ -1,92 +1,233 @@
-[debug] [2026-07-23T05:48:37.400Z] : 
-[debug] [2026-07-23T05:48:37.403Z] : ----------------------------------------------------------------------
-[debug] [2026-07-23T05:48:37.403Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js serve
-[debug] [2026-07-23T05:48:37.403Z] : CLI Version:  1.27.0
-[debug] [2026-07-23T05:48:37.403Z] : Platform:     win32
-[debug] [2026-07-23T05:48:37.404Z] : Node Version: v24.11.1
-[debug] [2026-07-23T05:48:37.404Z] : Time:         Thu Jul 23 2026 11:18:37 GMT+0530 (India Standard Time)
-[debug] [2026-07-23T05:48:37.404Z] : ----------------------------------------------------------------------
-[debug] [2026-07-23T05:48:37.404Z] : 
-[debug] [2026-07-23T05:48:41.637Z] : > authorizing via signed-in user option
-[debug] [2026-07-23T05:48:41.639Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.apigateway.apis.READ","ZohoCatalyst.apigateway.READ","ZohoCatalyst.segments.ALL","ZohoCatalyst.cache.READ","ZohoCatalyst.cache.CREATE","ZohoCatalyst.cache.DELETE","ZohoCatalyst.projects.ALL","ZohoCatalyst.cron.ALL","ZohoCatalyst.zcql.CREATE","ZohoCatalyst.projects.users.READ","ZohoCatalyst.projects.users.CREATE","ZohoCatalyst.projects.users.DELETE","ZohoCatalyst.projects.users.UPDATE","ZohoCatalyst.authentication.CREATE","ZohoCatalyst.email.CREATE","ZohoCatalyst.tables.ALL","ZohoCatalyst.tables.rows.ALL","ZohoCatalyst.tables.columns.ALL","ZohoCatalyst.tables.bulk.CREATE","ZohoCatalyst.tables.bulk.READ","ZohoCatalyst.folders.ALL","ZohoCatalyst.files.CREATE","ZohoCatalyst.files.READ","ZohoCatalyst.files.DELETE","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.eventlistners.ALL","ZohoCatalyst.eventlisteners.produce","ZohoCatalyst.security.rules.Read","ZohoCatalyst.security.rules.Update","ZohoCatalyst.notifications.mobile","ZohoCatalyst.notifications.web","ZohoCatalyst.search.READ","ZohoCatalyst.mlkit.READ","QuickML.deployment.READ","ZohoCatalyst.pdfshot.execute","ZohoCatalyst.grid.READ","ZohoCatalyst.grid.terminate","ZohoCatalyst.circuits.execution.DELETE","ZohoCatalyst.circuits.execution.READ","ZohoCatalyst.circuits.execute","ZohoCatalyst.appsail.Read","ZohoCatalyst.jobpool.READ","ZohoCatalyst.job.ALL","ZohoCatalyst.nosql.READ","ZohoCatalyst.nosql.rows.ALL"]
-[debug] [2026-07-23T05:48:41.838Z] : > refreshing access token <
-[debug] [2026-07-23T05:48:41.843Z] : >>>> HTTP REQUEST : POST https://accounts.zoho.in/oauth/v2/token 
-<request body omitted>
+[debug] [2026-07-23T16:46:01.086Z] : 
+[debug] [2026-07-23T16:46:01.089Z] : ----------------------------------------------------------------------
+[debug] [2026-07-23T16:46:01.089Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js serve
+[debug] [2026-07-23T16:46:01.089Z] : CLI Version:  1.27.0
+[debug] [2026-07-23T16:46:01.089Z] : Platform:     win32
+[debug] [2026-07-23T16:46:01.090Z] : Node Version: v24.11.1
+[debug] [2026-07-23T16:46:01.090Z] : Time:         Thu Jul 23 2026 22:16:01 GMT+0530 (India Standard Time)
+[debug] [2026-07-23T16:46:01.090Z] : ----------------------------------------------------------------------
+[debug] [2026-07-23T16:46:01.090Z] : 
+[debug] [2026-07-23T16:46:06.265Z] : > authorizing via signed-in user option
+[debug] [2026-07-23T16:46:06.266Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.apigateway.apis.READ","ZohoCatalyst.apigateway.READ","ZohoCatalyst.segments.ALL","ZohoCatalyst.cache.READ","ZohoCatalyst.cache.CREATE","ZohoCatalyst.cache.DELETE","ZohoCatalyst.projects.ALL","ZohoCatalyst.cron.ALL","ZohoCatalyst.zcql.CREATE","ZohoCatalyst.projects.users.READ","ZohoCatalyst.projects.users.CREATE","ZohoCatalyst.projects.users.DELETE","ZohoCatalyst.projects.users.UPDATE","ZohoCatalyst.authentication.CREATE","ZohoCatalyst.email.CREATE","ZohoCatalyst.tables.ALL","ZohoCatalyst.tables.rows.ALL","ZohoCatalyst.tables.columns.ALL","ZohoCatalyst.tables.bulk.CREATE","ZohoCatalyst.tables.bulk.READ","ZohoCatalyst.folders.ALL","ZohoCatalyst.files.CREATE","ZohoCatalyst.files.READ","ZohoCatalyst.files.DELETE","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.eventlistners.ALL","ZohoCatalyst.eventlisteners.produce","ZohoCatalyst.security.rules.Read","ZohoCatalyst.security.rules.Update","ZohoCatalyst.notifications.mobile","ZohoCatalyst.notifications.web","ZohoCatalyst.search.READ","ZohoCatalyst.mlkit.READ","QuickML.deployment.READ","ZohoCatalyst.pdfshot.execute","ZohoCatalyst.grid.READ","ZohoCatalyst.grid.terminate","ZohoCatalyst.circuits.execution.DELETE","ZohoCatalyst.circuits.execution.READ","ZohoCatalyst.circuits.execute","ZohoCatalyst.appsail.Read","ZohoCatalyst.jobpool.READ","ZohoCatalyst.job.ALL","ZohoCatalyst.nosql.READ","ZohoCatalyst.nosql.rows.ALL"]
+[debug] [2026-07-23T16:46:06.493Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001 
 
-[debug] [2026-07-23T05:48:53.684Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 05:48:53 GMT","content-type":"application/json;charset=UTF-8","content-length":"2523","connection":"keep-alive","cache-control":"no-store","x-content-type-options":"nosniff","pragma":"no-cache","x-frame-options":"SAMEORIGIN","vary":"accept-encoding","content-language":"en-US","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-23T16:46:06.852Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 16:46:06 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-23T05:48:53.791Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001 
+[debug] [2026-07-23T16:46:06.860Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/environment 
 
-[debug] [2026-07-23T05:48:54.603Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 05:48:54 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-23T16:46:06.978Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 16:46:06 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-23T05:48:54.609Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/environment 
-
-[debug] [2026-07-23T05:48:54.711Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 05:48:54 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
-
-[debug] [2026-07-23T05:48:55.376Z] : Build folder already exists, starting cleanup
-[debug] [2026-07-23T05:48:55.567Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/get-details 
+[debug] [2026-07-23T16:46:07.321Z] : Build folder already exists, starting cleanup
+[debug] [2026-07-23T16:46:07.617Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/get-details 
 Query params: {"feature_name":"runtime"}
 
-[debug] [2026-07-23T05:48:55.741Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 05:48:55 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-23T16:46:07.798Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 16:46:07 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-23T05:48:55.755Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/function 
+[debug] [2026-07-23T16:46:07.810Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/function 
 Query params: {"type":"basicio,event,cron,applogic,integration,browser_logic,job"}
 
-[debug] [2026-07-23T05:48:55.941Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 05:48:56 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-23T16:46:08.003Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 16:46:07 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-23T05:48:55.949Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-23T05:48:55.950Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-23T05:48:55.982Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
-[info] [2026-07-23T05:49:10.356Z] : [react-plugin]: Starting the development server...
+[debug] [2026-07-23T16:46:08.007Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-23T16:46:08.009Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-23T16:46:08.010Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-23T16:46:08.041Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[debug] [2026-07-23T16:46:09.905Z] : http port : '4000' is not available. Hence port '4001' will be used instead.
+[info] [2026-07-23T16:46:16.234Z] : [react-plugin]: Starting the development server...
 
-[info] [2026-07-23T05:49:10.359Z] : 
-[info] [2026-07-23T05:49:10.360Z] : i Client[raw-investigation-platform]: Plugin : "zcatalyst-cli-plugin-react" is used for client serve
-[info] [2026-07-23T05:49:10.360Z] : 
-[debug] [2026-07-23T05:49:16.706Z] : No API Gateway configuration found. Skipping API Gateway rules
-[info] [2026-07-23T05:49:16.713Z] : 
-[info] [2026-07-23T05:49:16.713Z] :  >>>>>>>>>>>>>> Basic I/O <<<<<<<<<<<<< 
-[info] [2026-07-23T05:49:16.714Z] : i raw_investigation_platform_function: http://localhost:3000/server/raw_investigation_platform_function/execute
-[info] [2026-07-23T05:49:16.714Z] : 
-[info] [2026-07-23T05:49:16.715Z] : 
-[info] [2026-07-23T05:49:16.715Z] :  >>>>>>>>>>>>> Advanced I/O <<<<<<<<<<< 
-[info] [2026-07-23T05:49:16.716Z] : i evidence_upload: http://localhost:3000/server/evidence_upload/
-[info] [2026-07-23T05:49:16.716Z] : 
-[info] [2026-07-23T05:49:16.716Z] : 
-[info] [2026-07-23T05:49:16.717Z] :  >>>>>>>>>>>>> Web Client <<<<<<<<<<<<
-[info] [2026-07-23T05:49:16.717Z] : i client[raw-investigation-platform]: http://localhost:3000/app/
-[info] [2026-07-23T05:49:16.717Z] : 
-[info] [2026-07-23T05:49:18.748Z] : [1784785758737]  "GET"  "/app/"
-[info] [2026-07-23T05:49:19.746Z] : [react-plugin]: Compiled successfully!
-[info] [2026-07-23T05:49:19.747Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:19.747Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
-[info] [2026-07-23T05:49:19.747Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:19.748Z] : [react-plugin]:   Local:            http://localhost:3000/app/
-[info] [2026-07-23T05:49:19.748Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
-[info] [2026-07-23T05:49:19.748Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:19.748Z] : [react-plugin]: Note that the development build is not optimized.
-[info] [2026-07-23T05:49:19.748Z] : [react-plugin]: To create a production build, use npm run build.
-[info] [2026-07-23T05:49:19.748Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:19.884Z] : [react-plugin]: Compiling...
-[info] [2026-07-23T05:49:19.915Z] : [1784785759914]  "GET"  "/app/static/js/bundle.js"
-[info] [2026-07-23T05:49:20.162Z] : [1784785760161]  "GET"  "/app/manifest.json"
-[info] [2026-07-23T05:49:20.217Z] : [react-plugin]: Compiled successfully!
-[info] [2026-07-23T05:49:20.217Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:20.218Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
-[info] [2026-07-23T05:49:20.218Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:20.218Z] : [react-plugin]:   Local:            http://localhost:3000/app/
-[info] [2026-07-23T05:49:20.218Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
-[info] [2026-07-23T05:49:20.218Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:20.219Z] : [react-plugin]: Note that the development build is not optimized.
-[info] [2026-07-23T05:49:20.219Z] : [react-plugin]: To create a production build, use npm run build.
-[info] [2026-07-23T05:49:20.219Z] : [react-plugin]: 
-[info] [2026-07-23T05:49:20.417Z] : [1784785760416]  "GET"  "/server/raw_investigation_platform_function/execute"
-[info] [2026-07-23T05:49:20.723Z] : [1784785760723]  "GET"  "/app/favicon.ico"
-[info] [2026-07-23T05:49:20.729Z] : [1784785760728]  "GET"  "/app/logo192.png"
-[info] [2026-07-23T05:49:32.438Z] : [1784785772437]  "GET"  "/server/raw_investigation_platform_function/execute"
-[info] [2026-07-23T05:50:14.584Z] : [1784785814582]  "GET"  "/app/favicon.ico"
-[info] [2026-07-23T06:01:07.638Z] : [1784786467638]  "POST"  "/server/evidence_upload/"
+[info] [2026-07-23T16:46:16.237Z] : 
+[info] [2026-07-23T16:46:16.238Z] : i Client[raw-investigation-platform]: Plugin : "zcatalyst-cli-plugin-react" is used for client serve
+[info] [2026-07-23T16:46:16.238Z] : 
+[debug] [2026-07-23T16:46:20.120Z] : No API Gateway configuration found. Skipping API Gateway rules
+[info] [2026-07-23T16:46:20.125Z] : 
+[info] [2026-07-23T16:46:20.125Z] :  >>>>>>>>>>>>>> Basic I/O <<<<<<<<<<<<< 
+[info] [2026-07-23T16:46:20.126Z] : i raw_investigation_platform_function: http://localhost:3000/server/raw_investigation_platform_function/execute
+[info] [2026-07-23T16:46:20.127Z] : 
+[info] [2026-07-23T16:46:20.127Z] : 
+[info] [2026-07-23T16:46:20.128Z] :  >>>>>>>>>>>>> Advanced I/O <<<<<<<<<<< 
+[info] [2026-07-23T16:46:20.128Z] : i evidence_upload   : http://localhost:3000/server/evidence_upload/
+[info] [2026-07-23T16:46:20.129Z] : i evidence_retrieval: http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-23T16:46:20.129Z] : 
+[info] [2026-07-23T16:46:20.129Z] : 
+[info] [2026-07-23T16:46:20.130Z] :  >>>>>>>>>>>>> Web Client <<<<<<<<<<<<
+[info] [2026-07-23T16:46:20.130Z] : i client[raw-investigation-platform]: http://localhost:3000/app/
+[info] [2026-07-23T16:46:20.130Z] : 
+[info] [2026-07-23T16:46:21.311Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-23T16:46:21.313Z] : [react-plugin]: 
+[info] [2026-07-23T16:46:21.315Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-23T16:46:21.316Z] : [react-plugin]: 
+[info] [2026-07-23T16:46:21.317Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-23T16:46:21.318Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-23T16:46:21.320Z] : [react-plugin]: 
+[info] [2026-07-23T16:46:21.321Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-23T16:46:21.322Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-23T16:46:21.323Z] : [react-plugin]: 
+[info] [2026-07-23T16:46:21.541Z] : [1784825181540]  "GET"  "/app/"
+[info] [2026-07-23T16:46:21.560Z] : [1784825181556]  "GET"  "/app/main.de652b76e20f931ace0e.hot-update.json"
+[info] [2026-07-23T16:46:21.753Z] : [1784825181753]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T16:46:21.916Z] : [1784825181915]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T16:46:22.057Z] : [1784825182056]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-23T16:46:22.421Z] : [1784825182420]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:46:22.426Z] : [1784825182426]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T16:46:25.950Z] : 
+change of index.js in evidence_retrieval detected. Preparing your function, please wait...
+[debug] [2026-07-23T16:46:25.988Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[info] [2026-07-23T16:46:27.304Z] : i AdvancedIO[evidence_retrieval]: ready!
+[info] [2026-07-23T16:46:27.304Z] : i AdvancedIO[evidence_retrieval]: http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-23T16:46:34.037Z] : [1784825194036]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-23T16:46:55.402Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:47:01.170Z] : [react-plugin]: Compiled with warnings.
+
+[info] [2026-07-23T16:47:01.170Z] : [react-plugin]: [eslint] 
+src\CaseWorkspace.js
+  Line 21:10:  'caseError' is assigned a value but never used                                                                                                    no-unused-vars
+  Line 236:6:  React Hook useEffect has missing dependencies: 'fetchCaseDetails' and 'fetchEvidenceRecords'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+[info] [2026-07-23T16:47:01.171Z] : [react-plugin]: 
+Search for the keywords to learn more about each warning.
+[info] [2026-07-23T16:47:01.171Z] : [react-plugin]: To ignore, add // eslint-disable-next-line to the line before.
+
+[info] [2026-07-23T16:47:01.201Z] : [1784825221201]  "GET"  "/app/main.b91a2d2560bb1ee5fbf2.hot-update.json"
+[info] [2026-07-23T16:47:01.521Z] : [1784825221521]  "GET"  "/app/main.b91a2d2560bb1ee5fbf2.hot-update.js"
+[info] [2026-07-23T16:47:42.601Z] : [1784825262601]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:47:42.935Z] : [1784825262933]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:47:43.539Z] : [1784825263538]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:48:02.513Z] : 
+change of index.js in evidence_retrieval detected. Preparing your function, please wait...
+[debug] [2026-07-23T16:48:02.595Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[info] [2026-07-23T16:48:02.598Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:48:03.274Z] : [react-plugin]: Compiled with warnings.
+
+[info] [2026-07-23T16:48:03.276Z] : [react-plugin]: [eslint] 
+src\CaseWorkspace.js
+  Line 21:10:  'caseError' is assigned a value but never used                                                                                                    no-unused-vars
+  Line 236:6:  React Hook useEffect has missing dependencies: 'fetchCaseDetails' and 'fetchEvidenceRecords'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+[info] [2026-07-23T16:48:03.278Z] : [react-plugin]: 
+Search for the keywords to learn more about each warning.
+[info] [2026-07-23T16:48:03.278Z] : [react-plugin]: To ignore, add // eslint-disable-next-line to the line before.
+
+[info] [2026-07-23T16:48:04.325Z] : i AdvancedIO[evidence_retrieval]: ready!
+[info] [2026-07-23T16:48:04.326Z] : i AdvancedIO[evidence_retrieval]: http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-23T16:48:10.272Z] : [1784825290271]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-23T16:48:10.305Z] : [1784825290305]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T16:48:10.599Z] : [1784825290598]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:48:10.639Z] : [1784825290634]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T16:48:10.914Z] : [1784825290913]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:48:10.961Z] : [1784825290961]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T16:48:11.533Z] : [1784825291532]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:50:24.961Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:50:26.143Z] : [react-plugin]: Compiled with warnings.
+
+[info] [2026-07-23T16:50:26.143Z] : [react-plugin]: [eslint] 
+src\CaseWorkspace.js
+  Line 1:10:   'useCallback' is defined but never used                                                                                                           no-unused-vars
+  Line 21:10:  'caseError' is assigned a value but never used                                                                                                    no-unused-vars
+  Line 236:6:  React Hook useEffect has missing dependencies: 'fetchCaseDetails' and 'fetchEvidenceRecords'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+[info] [2026-07-23T16:50:26.144Z] : [react-plugin]: 
+Search for the keywords to learn more about each warning.
+[info] [2026-07-23T16:50:26.144Z] : [react-plugin]: To ignore, add // eslint-disable-next-line to the line before.
+
+[info] [2026-07-23T16:50:26.458Z] : [1784825426458]  "GET"  "/app/main.0ef2e95c2705b9fc3507.hot-update.json"
+[info] [2026-07-23T16:50:26.717Z] : [1784825426717]  "GET"  "/app/main.0ef2e95c2705b9fc3507.hot-update.js"
+[info] [2026-07-23T16:50:29.948Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:50:31.091Z] : [react-plugin]: Failed to compile.
+
+[info] [2026-07-23T16:50:31.094Z] : [react-plugin]: [eslint] 
+src\CaseWorkspace.js
+  Line 197:5:  'setCaseError' is not defined  no-undef
+  Line 223:7:  'setCaseError' is not defined  no-undef
+
+Search for the keywords to learn more about each error.
+[info] [2026-07-23T16:50:37.541Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:50:37.868Z] : [react-plugin]: Failed to compile.
+
+[info] [2026-07-23T16:50:37.869Z] : [react-plugin]: SyntaxError: C:\MyProjects\RAW-AI-Investigation-Portal\raw-investigation-platform\src\CaseWorkspace.js: Unexpected token, expected "," (228:3)
+  226 |       setCaseLoading(false);
+  227 |     }
+> 228 |   };
+      |    ^
+  229 |
+  230 |   useEffect(() => {
+  231 |     if (caseId) {
+[info] [2026-07-23T16:51:04.716Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:51:05.137Z] : [react-plugin]: Failed to compile.
+
+[info] [2026-07-23T16:51:05.139Z] : [react-plugin]: SyntaxError: C:\MyProjects\RAW-AI-Investigation-Portal\raw-investigation-platform\src\CaseWorkspace.js: Unexpected token, expected "," (226:3)
+  224 |       setCaseLoading(false);
+  225 |     }
+> 226 |   };
+      |    ^
+  227 |
+  228 |   useEffect(() => {
+  229 |     if (caseId) {
+[info] [2026-07-23T16:53:20.733Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:53:21.080Z] : [react-plugin]: Failed to compile.
+
+[info] [2026-07-23T16:53:21.080Z] : [react-plugin]: SyntaxError: C:\MyProjects\RAW-AI-Investigation-Portal\raw-investigation-platform\src\CaseWorkspace.js: Unexpected token, expected "," (226:3)
+  224 |       setCaseLoading(false);
+  225 |     }
+> 226 |   };
+      |    ^
+  227 |
+  228 |   useEffect(() => {
+  229 |     if (caseId) {
+[info] [2026-07-23T16:53:24.368Z] : [1784825604367]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-23T16:53:24.403Z] : [1784825604402]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T16:53:24.651Z] : [1784825604651]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:53:24.730Z] : [1784825604730]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T16:53:25.061Z] : [1784825605060]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T16:53:26.870Z] : [1784825606870]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-23T16:53:26.919Z] : [1784825606918]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T16:53:27.175Z] : [1784825607174]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T16:53:27.560Z] : [1784825607559]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:53:27.563Z] : [1784825607562]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T16:54:14.685Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:54:16.036Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-23T16:54:16.036Z] : [react-plugin]: 
+[info] [2026-07-23T16:54:16.036Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-23T16:54:16.037Z] : [react-plugin]: 
+[info] [2026-07-23T16:54:16.038Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-23T16:54:16.039Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-23T16:54:16.039Z] : [react-plugin]: 
+[info] [2026-07-23T16:54:16.039Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-23T16:54:16.040Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-23T16:54:16.040Z] : [react-plugin]: 
+[info] [2026-07-23T16:54:16.062Z] : [1784825656061]  "GET"  "/app/main.ba8ba7cabeb2a7bd2db9.hot-update.json"
+[info] [2026-07-23T16:54:16.390Z] : [1784825656390]  "GET"  "/app/main.ba8ba7cabeb2a7bd2db9.hot-update.js"
+[info] [2026-07-23T16:54:16.658Z] : [1784825656657]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-23T16:54:16.732Z] : [1784825656732]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T16:54:17.000Z] : [1784825656999]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T16:54:17.010Z] : [1784825657010]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:54:17.366Z] : [1784825657356]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:54:17.380Z] : [1784825657376]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T16:54:17.640Z] : [1784825657639]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:55:22.978Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T16:55:23.634Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-23T16:55:23.635Z] : [react-plugin]: 
+[info] [2026-07-23T16:55:23.636Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-23T16:55:23.636Z] : [react-plugin]: 
+[info] [2026-07-23T16:55:23.637Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-23T16:55:23.637Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-23T16:55:23.638Z] : [react-plugin]: 
+[info] [2026-07-23T16:55:23.640Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-23T16:55:23.641Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-23T16:55:23.641Z] : [react-plugin]: 
+[info] [2026-07-23T16:55:28.424Z] : [1784825728423]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-23T16:55:28.456Z] : [1784825728455]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T16:55:28.688Z] : [1784825728688]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:55:28.855Z] : [1784825728854]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T16:55:28.859Z] : [1784825728859]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:55:29.190Z] : [1784825729190]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T16:55:29.246Z] : [1784825729246]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:56:08.772Z] : [1784825768771]  "POST"  "/server/evidence_upload/"
+[info] [2026-07-23T16:56:31.095Z] : [1784825791092]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:57:33.841Z] : [1784825853841]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-23T16:57:33.868Z] : [1784825853868]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T16:57:34.132Z] : [1784825854130]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T16:57:34.197Z] : [1784825854196]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T16:57:34.447Z] : [1784825854446]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T16:57:34.510Z] : [1784825854509]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T16:57:46.001Z] : [1784825866001]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"

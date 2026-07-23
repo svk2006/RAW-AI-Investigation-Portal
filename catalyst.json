@@ -2,7 +2,8 @@
   "functions": {
     "targets": [
       "raw_investigation_platform_function",
-      "evidence_upload"
+      "evidence_upload",
+      "evidence_retrieval"
     ],
     "ignore": [],
     "source": "functions"
