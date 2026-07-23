@@ -1,0 +1,10 @@
+{
+	"name": "evidence_upload",
+	"version": "1.0.0",
+	"main": "index.js",
+	"author": "venkatakrishnan1409@gmail.com",
+	"dependencies": {
+		"busboy": "^1.6.0",
+		"zcatalyst-sdk-node": "^3.4.0"
+	}
+}

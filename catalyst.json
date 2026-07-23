@@ -1,0 +1,14 @@
+{
+  "functions": {
+    "targets": [
+      "raw_investigation_platform_function",
+      "evidence_upload"
+    ],
+    "ignore": [],
+    "source": "functions"
+  },
+  "client": {
+    "source": "raw-investigation-platform",
+    "plugin": "zcatalyst-cli-plugin-react"
+  }
+}

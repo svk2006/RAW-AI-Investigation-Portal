@@ -1,0 +1,11 @@
+{
+	"deployment": {
+		"name": "evidence_upload",
+		"stack": "node24",
+		"type": "advancedio",
+		"env_variables": {}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}

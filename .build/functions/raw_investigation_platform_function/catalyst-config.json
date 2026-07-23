@@ -1,0 +1,11 @@
+{
+	"deployment": {
+		"name": "raw_investigation_platform_function",
+		"stack": "node24",
+		"type": "basicio",
+		"env_variables": {}
+	},
+	"execution": {
+		"main": "index.js"
+	}
+}

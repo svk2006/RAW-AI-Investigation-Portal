@@ -1,0 +1,30 @@
+{
+  "defaults": {
+    "project": 1,
+    "env": 1
+  },
+  "actives": {
+    "project": 1,
+    "env": 1
+  },
+  "projects": [
+    {
+      "idx": 1,
+      "id": "48911000000019001",
+      "name": "RAW-Investigation-Platform",
+      "domain": {
+        "id": "50044228480",
+        "name": "raw-investigation-platform-60079111719.development"
+      },
+      "timezone": "Asia/Kolkata",
+      "env": [
+        {
+          "idx": 1,
+          "id": "60079111719",
+          "name": "Development",
+          "type": 3
+        }
+      ]
+    }
+  ]
+}
