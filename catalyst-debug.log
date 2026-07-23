@@ -231,3 +231,85 @@ Search for the keywords to learn more about each error.
 [info] [2026-07-23T16:57:34.447Z] : [1784825854446]  "GET"  "/app/favicon.ico"
 [info] [2026-07-23T16:57:34.510Z] : [1784825854509]  "GET"  "/app/logo192.png"
 [info] [2026-07-23T16:57:46.001Z] : [1784825866001]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T17:01:38.391Z] : 
+change of index.js in evidence_retrieval detected. Preparing your function, please wait...
+[debug] [2026-07-23T17:01:38.444Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[info] [2026-07-23T17:01:40.072Z] : i AdvancedIO[evidence_retrieval]: ready!
+[info] [2026-07-23T17:01:40.074Z] : i AdvancedIO[evidence_retrieval]: http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-23T17:02:07.677Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T17:02:08.989Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-23T17:02:08.989Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:08.989Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-23T17:02:08.989Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:08.990Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-23T17:02:08.990Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-23T17:02:08.990Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:08.990Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-23T17:02:08.991Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-23T17:02:08.991Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:09.314Z] : [1784826129313]  "GET"  "/app/main.db4e17d15f669684e721.hot-update.json"
+[info] [2026-07-23T17:02:09.562Z] : [1784826129562]  "GET"  "/app/main.db4e17d15f669684e721.hot-update.js"
+[info] [2026-07-23T17:02:10.578Z] : [1784826130577]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T17:02:34.426Z] : 
+change of index.js in evidence_retrieval detected. Preparing your function, please wait...
+[debug] [2026-07-23T17:02:34.499Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[info] [2026-07-23T17:02:34.599Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T17:02:35.411Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-23T17:02:35.412Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:35.415Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-23T17:02:35.428Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:35.428Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-23T17:02:35.429Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-23T17:02:35.429Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:35.430Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-23T17:02:35.431Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-23T17:02:35.431Z] : [react-plugin]: 
+[info] [2026-07-23T17:02:36.732Z] : i AdvancedIO[evidence_retrieval]: ready!
+[info] [2026-07-23T17:02:36.733Z] : i AdvancedIO[evidence_retrieval]: http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-23T17:02:42.961Z] : [1784826162960]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-23T17:02:42.996Z] : [1784826162996]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T17:02:43.272Z] : [1784826163271]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T17:02:43.328Z] : [1784826163328]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T17:02:43.581Z] : [1784826163581]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T17:02:43.655Z] : [1784826163654]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T17:02:44.310Z] : [1784826164310]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T17:08:04.078Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T17:08:04.472Z] : [react-plugin]: Failed to compile.
+
+[info] [2026-07-23T17:08:04.473Z] : [react-plugin]: SyntaxError: C:\MyProjects\RAW-AI-Investigation-Portal\raw-investigation-platform\src\CaseWorkspace.js: Expected corresponding JSX closing tag for <div>. (1361:14)
+  1359 |         </main>
+  1360 |                 )}
+> 1361 |               </>
+       |               ^
+  1362 |             )}
+  1363 |
+  1364 |           </section>
+[info] [2026-07-23T17:08:22.961Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T17:08:24.973Z] : [react-plugin]: Failed to compile.
+
+[info] [2026-07-23T17:08:24.973Z] : [react-plugin]: SyntaxError: C:\MyProjects\RAW-AI-Investigation-Portal\raw-investigation-platform\src\CaseWorkspace.js: Expected corresponding JSX closing tag for <div>. (1361:14)
+  1359 |         </main>
+  1360 |                 )}
+> 1361 |               </>
+       |               ^
+  1362 |             )}
+  1363 |
+  1364 |           </section>
+[info] [2026-07-23T17:14:05.933Z] : [react-plugin]: Compiling...
+[info] [2026-07-23T17:14:07.181Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-23T17:14:07.182Z] : [react-plugin]: 
+[info] [2026-07-23T17:14:07.183Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-23T17:14:07.183Z] : [react-plugin]: 
+[info] [2026-07-23T17:14:07.184Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-23T17:14:07.184Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-23T17:14:07.184Z] : [react-plugin]: 
+[info] [2026-07-23T17:14:07.184Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-23T17:14:07.185Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-23T17:14:07.185Z] : [react-plugin]: 
+[info] [2026-07-23T17:14:07.495Z] : [1784826847495]  "GET"  "/app/main.e904f4869d2513e03f86.hot-update.json"
+[info] [2026-07-23T17:14:07.766Z] : [1784826847766]  "GET"  "/app/main.e904f4869d2513e03f86.hot-update.js"
+[info] [2026-07-23T17:14:07.816Z] : [1784826847816]  "GET"  "/app/main.1bd208dac56c60e86a56.hot-update.json"
+[info] [2026-07-23T17:14:08.096Z] : [1784826848096]  "GET"  "/app/main.1bd208dac56c60e86a56.hot-update.js"
+[info] [2026-07-23T17:14:08.127Z] : [1784826848127]  "GET"  "/app/main.d3b714435215073b74bf.hot-update.json"
+[info] [2026-07-23T17:14:08.429Z] : [1784826848428]  "GET"  "/app/main.d3b714435215073b74bf.hot-update.js"
+[info] [2026-07-23T17:14:09.530Z] : [1784826849529]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
