@@ -358,8 +358,25 @@ module.exports = async (req, res) => {
 						databaseError
 					);
 
+					try {
+						await bucket.deleteObject(
+							storageObjectKey
+						);
+
+						console.log(
+							'Evidence rollback succeeded; newly uploaded Stratus object deleted:',
+							storageObjectKey
+						);
+					} catch (rollbackError) {
+						console.error(
+							'CRITICAL: Evidence rollback failed; orphaned Stratus object requires manual investigation. StorageObjectKey:',
+							storageObjectKey,
+							rollbackError
+						);
+					}
+
 					throw new Error(
-						'File stored but evidence metadata registration failed'
+						'Evidence metadata registration failed'
 					);
 				}
 
