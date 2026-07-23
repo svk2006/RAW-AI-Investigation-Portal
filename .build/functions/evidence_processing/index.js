@@ -12,6 +12,45 @@ module.exports = async (req, res) => {
   let processingStarted = false;
 
   try {
+    const app = catalyst.initialize(req);
+    const datastore = app.datastore();
+    evidenceTable = datastore.table('Evidence');
+
+    if (req.method === 'GET') {
+      const requestUrl = req.url || '';
+      const parsedUrl = new URL(requestUrl, 'http://localhost');
+      const evidenceId = String(
+        parsedUrl.searchParams.get('evidenceId') || ''
+      ).trim();
+
+      if (!evidenceId || !/^[0-9]+$/.test(evidenceId)) {
+        return sendJSON(res, 400, {
+          success: false,
+          error: 'Evidence ROWID must be a numeric value'
+        });
+      }
+
+      evidenceRow = await evidenceTable.getRow(evidenceId);
+
+      if (!evidenceRow) {
+        return sendJSON(res, 404, {
+          success: false,
+          error: 'Evidence record was not found'
+        });
+      }
+
+      const entities = await getPersistedEntities(
+        datastore,
+        evidenceId
+      );
+
+      return sendJSON(res, 200, {
+        success: true,
+        evidenceId,
+        entities
+      });
+    }
+
     if (req.method !== 'POST') {
       return sendJSON(res, 405, {
         success: false,
@@ -29,9 +68,6 @@ module.exports = async (req, res) => {
       });
     }
 
-    const app = catalyst.initialize(req);
-    const datastore = app.datastore();
-    evidenceTable = datastore.table('Evidence');
     evidenceRow = await evidenceTable.getRow(evidenceId);
 
     if (!evidenceRow) {
@@ -68,6 +104,14 @@ module.exports = async (req, res) => {
     const contentBuffer = await readStream(objectStream);
     const extractedText = contentBuffer.toString('utf8');
 
+    const extractedEntities = extractEntities(extractedText);
+    const persistedEntities = await persistEntities(
+      datastore,
+      evidenceRow,
+      evidenceId,
+      extractedEntities
+    );
+
     await evidenceTable.updateRow({
       ROWID: evidenceId,
       ProcessingStatus: 'PROCESSED'
@@ -78,7 +122,8 @@ module.exports = async (req, res) => {
       supported: true,
       evidenceId,
       processingStatus: 'PROCESSED',
-      extractedText
+      extractedText,
+      entities: persistedEntities
     });
   } catch (error) {
     console.error('Evidence processing error:', error);
@@ -128,6 +173,189 @@ function isSupportedTextEvidence(row) {
     SUPPORTED_MIME_TYPES.has(mimeType) ||
     fileName.endsWith('.txt')
   );
+}
+
+function extractEntities(text) {
+  const sourceText = String(text || '');
+  const entities = [];
+  const addMatches = (entityType, pattern, confidence, normalize) => {
+    for (const match of sourceText.matchAll(pattern)) {
+      const rawValue = match[0];
+      const start = match.index;
+      const value = normalize(rawValue);
+
+      if (!value) {
+        continue;
+      }
+
+      entities.push({
+        EntityType: entityType,
+        EntityValue: value,
+        Confidence: confidence,
+        SourceLocation: `Character offsets ${start}-${start + rawValue.length}`
+      });
+    }
+  };
+
+  const emailMatches = collectMatches(
+    sourceText,
+    /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi
+  );
+  const urlMatches = collectMatches(
+    sourceText,
+    /https?:\/\/[^\s<>"')]+/gi,
+    trimTrailingUrlPunctuation
+  );
+
+  addMatches(
+    'EMAIL',
+    /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi,
+    0.99,
+    (value) => value.toLowerCase()
+  );
+
+  addMatches(
+    'URL',
+    /https?:\/\/[^\s<>"')]+/gi,
+    0.98,
+    trimTrailingUrlPunctuation
+  );
+
+  addMatches(
+    'IP_ADDRESS',
+    /\b(?:\d{1,3}\.){3}\d{1,3}\b/g,
+    0.99,
+    (value) => isValidIPv4(value) ? value : ''
+  );
+
+  for (const match of sourceText.matchAll(
+    /(?<![@\w])(?:[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?\.)+[a-z]{2,}(?![\w])/gi
+  )) {
+    const start = match.index;
+    const value = match[0].toLowerCase();
+
+    if (
+      isWithinMatch(start, emailMatches) ||
+      isWithinMatch(start, urlMatches)
+    ) {
+      continue;
+    }
+
+    entities.push({
+      EntityType: 'DOMAIN',
+      EntityValue: value,
+      Confidence: 0.95,
+      SourceLocation: `Character offsets ${start}-${start + match[0].length}`
+    });
+  }
+
+  addMatches(
+    'PHONE',
+    /\+?[1-9]\d{1,2}[\s.-]?(?:\(?\d{3}\)?[\s.-]?)\d{3}[\s.-]?\d{4}\b/g,
+    0.90,
+    (value) => value.trim()
+  );
+
+  addMatches(
+    'TRANSACTION_REFERENCE',
+    /\b(?:TXN|TRX|REF|ORDER)[-_][A-Z0-9-]{3,}\b/gi,
+    0.97,
+    (value) => value.toUpperCase()
+  );
+
+  const uniqueEntities = new Map();
+
+  for (const entity of entities) {
+    const key = `${entity.EntityType}:${entity.EntityValue.toLowerCase()}`;
+
+    if (!uniqueEntities.has(key)) {
+      uniqueEntities.set(key, entity);
+    }
+  }
+
+  return Array.from(uniqueEntities.values());
+}
+
+function collectMatches(text, pattern, normalize = (value) => value) {
+  return Array.from(text.matchAll(pattern)).map((match) => ({
+    start: match.index,
+    end: match.index + match[0].length,
+    value: normalize(match[0])
+  }));
+}
+
+function isWithinMatch(start, matches) {
+  return matches.some((match) => start >= match.start && start < match.end);
+}
+
+function trimTrailingUrlPunctuation(value) {
+  return value.replace(/[.,!?;:]+$/, '');
+}
+
+function isValidIPv4(value) {
+  const octets = value.split('.');
+
+  return (
+    octets.length === 4 &&
+    octets.every((octet) => {
+      const number = Number(octet);
+      return octet.length > 0 && number >= 0 && number <= 255;
+    })
+  );
+}
+
+async function persistEntities(datastore, evidenceRow, evidenceId, entities) {
+  const entityTable = datastore.table('ExtractedEntity');
+  const existingEntities = await getPersistedEntities(
+    datastore,
+    evidenceId
+  );
+  const existingKeys = new Set(
+    existingEntities.map((entity) =>
+      `${entity.EntityType}:${String(entity.EntityValue).toLowerCase()}`
+    )
+  );
+  const createdAt = getCatalystDateTime();
+
+  for (const entity of entities) {
+    const key = `${entity.EntityType}:${entity.EntityValue.toLowerCase()}`;
+
+    if (existingKeys.has(key)) {
+      continue;
+    }
+
+    await entityTable.insertRow({
+      CaseMasterID: String(evidenceRow.CaseMasterID),
+      EvidenceID: String(evidenceId),
+      EntityType: entity.EntityType,
+      EntityValue: entity.EntityValue,
+      Confidence: entity.Confidence,
+      SourceLocation: entity.SourceLocation,
+      Verified: false,
+      CreatedAt: createdAt
+    });
+
+    existingKeys.add(key);
+  }
+
+  return getPersistedEntities(datastore, evidenceId);
+}
+
+async function getPersistedEntities(datastore, evidenceId) {
+  const entityTable = datastore.table('ExtractedEntity');
+  const rows = await entityTable.getAllRows();
+
+  return rows.filter((row) =>
+    String(row.EvidenceID) === String(evidenceId)
+  );
+}
+
+function getCatalystDateTime() {
+  const now = new Date();
+  const pad = (value) => String(value).padStart(2, '0');
+
+  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ` +
+    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 }
 
 async function readRequestBody(req) {

@@ -69,3 +69,20 @@ Response Headers: {"server":"ZGS","date":"Thu, 23 Jul 2026 17:59:23 GMT","conten
 [info] [2026-07-23T17:59:54.122Z] : [react-plugin]: Note that the development build is not optimized.
 [info] [2026-07-23T17:59:54.123Z] : [react-plugin]: To create a production build, use npm run build.
 [info] [2026-07-23T17:59:54.123Z] : [react-plugin]: 
+[info] [2026-07-23T17:59:54.585Z] : [1784829594585]  "GET"  "/app/"
+[info] [2026-07-23T17:59:54.634Z] : [1784829594634]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-23T17:59:54.937Z] : [1784829594937]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-23T17:59:54.954Z] : [1784829594954]  "GET"  "/app/manifest.json"
+[info] [2026-07-23T17:59:55.337Z] : [1784829595336]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T17:59:55.355Z] : [1784829595353]  "GET"  "/app/logo192.png"
+[info] [2026-07-23T17:59:55.915Z] : [1784829595915]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-23T18:00:14.368Z] : [1784829614365]  "GET"  "/app/favicon.ico"
+[info] [2026-07-23T18:00:14.719Z] : [1784829614718]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T18:00:15.281Z] : [1784829615279]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-23T18:00:19.021Z] : [1784829619021]  "POST"  "/server/evidence_processing/"
+[info] [2026-07-23T18:01:53.160Z] : [1784829713160]  "GET"  "/app/main.fa444f1789dd46ff8395.hot-update.json"
+[info] [2026-07-23T18:02:08.536Z] : 
+change of catalyst-config.json in evidence_processing detected. Preparing your function, please wait...
+[debug] [2026-07-23T18:02:08.580Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[info] [2026-07-23T18:02:10.207Z] : i AdvancedIO[evidence_processing]: ready!
+[info] [2026-07-23T18:02:10.213Z] : i AdvancedIO[evidence_processing]: http://localhost:3000/server/evidence_processing/

@@ -1,18 +1,5 @@
-RAW SYNTHETIC DIGITAL EVIDENCE
-Case: CASE-RAW-001
-Evidence Type: Communication Log
-
-Timestamp: 2026-07-21 20:34:12
 Sender: attacker@synthetic-example.test
-Recipient: victim@synthetic-example.test
-
-Message:
-Your account requires immediate verification.
-Visit secure-login.synthetic-example.test to continue.
-
-Observed IP Address: 203.0.113.42
+IP Address: 203.0.113.42
+URL: https://secure-login.synthetic-example.test/login
+Domain: secure-login.synthetic-example.test
 Transaction Reference: TXN-784291
-Amount: INR 48,500
-
-Timestamp: 2026-07-21 21:16:03
-Transaction TXN-784291 was reported as unauthorized.
