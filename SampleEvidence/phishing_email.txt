@@ -1,5 +1,16 @@
+RAW SYNTHETIC EVIDENCE
+Case: CASE-RAW-001
+
+Timestamp: 2026-07-21 20:34:12
 Sender: attacker@synthetic-example.test
-IP Address: 203.0.113.42
-URL: https://secure-login.synthetic-example.test/login
-Domain: secure-login.synthetic-example.test
-Transaction Reference: TXN-784291
+Recipient: victim@synthetic-example.test
+Message: Your account requires immediate verification.
+
+Timestamp: 2026-07-21 20:48:35
+Access observed from IP address 203.0.113.42.
+
+Timestamp: 2026-07-21 21:16:03
+Transaction TXN-784291 was reported as unauthorized.
+
+Timestamp: 2026-07-21 21:42:18
+Victim reported the suspicious activity.

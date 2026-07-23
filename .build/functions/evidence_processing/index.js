@@ -22,6 +22,29 @@ module.exports = async (req, res) => {
       const evidenceId = String(
         parsedUrl.searchParams.get('evidenceId') || ''
       ).trim();
+      const caseId = String(
+        parsedUrl.searchParams.get('caseId') || ''
+      ).trim();
+
+      if (caseId) {
+        if (!/^[0-9]+$/.test(caseId)) {
+          return sendJSON(res, 400, {
+            success: false,
+            error: 'Case ROWID must be a numeric value'
+          });
+        }
+
+        const timelineEvents = await getTimelineEvents(
+          datastore,
+          caseId
+        );
+
+        return sendJSON(res, 200, {
+          success: true,
+          caseId,
+          events: timelineEvents
+        });
+      }
 
       if (!evidenceId || !/^[0-9]+$/.test(evidenceId)) {
         return sendJSON(res, 400, {
@@ -111,6 +134,13 @@ module.exports = async (req, res) => {
       evidenceId,
       extractedEntities
     );
+    const extractedEvents = extractTimelineEvents(extractedText);
+    const persistedEvents = await persistTimelineEvents(
+      datastore,
+      evidenceRow,
+      evidenceId,
+      extractedEvents
+    );
 
     await evidenceTable.updateRow({
       ROWID: evidenceId,
@@ -123,7 +153,8 @@ module.exports = async (req, res) => {
       evidenceId,
       processingStatus: 'PROCESSED',
       extractedText,
-      entities: persistedEntities
+      entities: persistedEntities,
+      timelineEvents: persistedEvents
     });
   } catch (error) {
     console.error('Evidence processing error:', error);
@@ -304,6 +335,86 @@ function isValidIPv4(value) {
   );
 }
 
+function extractTimelineEvents(text) {
+  const sourceText = String(text || '');
+  const timestampPattern = /\b(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})\b/g;
+  const matches = Array.from(sourceText.matchAll(timestampPattern));
+  const events = [];
+
+  for (let index = 0; index < matches.length; index += 1) {
+    const match = matches[index];
+    const timestamp = match[1];
+    const nextStart = matches[index + 1]?.index ?? sourceText.length;
+    const associatedText = sourceText
+      .slice(match.index + match[0].length, nextStart)
+      .trim();
+    const description = buildEventDescription(associatedText);
+    const eventType = classifyEvent(associatedText);
+
+    if (!isValidCatalystDateTime(timestamp)) {
+      continue;
+    }
+
+    events.push({
+      EventTime: timestamp,
+      EventType: eventType,
+      Description: description,
+      Confidence: eventType === 'OBSERVED_EVENT' ? 0.80 : 0.90,
+      SourceLocation: `Character offsets ${match.index}-${nextStart}`
+    });
+  }
+
+  return events;
+}
+
+function isValidCatalystDateTime(value) {
+  const [datePart, timePart] = value.split(' ');
+  const [year, month, day] = datePart.split('-').map(Number);
+  const [hours, minutes, seconds] = timePart.split(':').map(Number);
+  const date = new Date(year, month - 1, day, hours, minutes, seconds);
+
+  return (
+    date.getFullYear() === year &&
+    date.getMonth() === month - 1 &&
+    date.getDate() === day &&
+    date.getHours() === hours &&
+    date.getMinutes() === minutes &&
+    date.getSeconds() === seconds
+  );
+}
+
+function buildEventDescription(associatedText) {
+  const lines = associatedText
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .filter(Boolean);
+
+  return (lines.slice(0, 4).join(' | ') || 'Timestamped event recorded in evidence text')
+    .slice(0, 500);
+}
+
+function classifyEvent(associatedText) {
+  const text = associatedText.toLowerCase();
+
+  if (/transaction|txn[-_]|payment|transfer|purchase/.test(text)) {
+    return 'TRANSACTION';
+  }
+
+  if (/sender:|recipient:|message:|email|communicat|reply|conversation/.test(text)) {
+    return 'COMMUNICATION';
+  }
+
+  if (/login|log in|access|sign[- ]?in|authentication|verification/.test(text)) {
+    return 'ACCESS';
+  }
+
+  if (/reported|report|unauthorized|complaint|alert/.test(text)) {
+    return 'REPORT';
+  }
+
+  return 'OBSERVED_EVENT';
+}
+
 async function persistEntities(datastore, evidenceRow, evidenceId, entities) {
   const entityTable = datastore.table('ExtractedEntity');
   const existingEntities = await getPersistedEntities(
@@ -348,6 +459,62 @@ async function getPersistedEntities(datastore, evidenceId) {
   return rows.filter((row) =>
     String(row.EvidenceID) === String(evidenceId)
   );
+}
+
+async function persistTimelineEvents(datastore, evidenceRow, evidenceId, events) {
+  const timelineTable = datastore.table('TimelineEvent');
+  const existingEvents = await getTimelineEvents(datastore, null, evidenceId);
+  const existingKeys = new Set(
+    existingEvents.map((event) => buildTimelineKey(event))
+  );
+
+  for (const event of events) {
+    const eventRow = {
+      CaseMasterID: String(evidenceRow.CaseMasterID),
+      EvidenceID: String(evidenceId),
+      EventTime: event.EventTime,
+      EventType: event.EventType,
+      Description: event.Description,
+      Confidence: event.Confidence,
+      CreatedByAI: false
+    };
+    const key = buildTimelineKey(eventRow);
+
+    if (existingKeys.has(key)) {
+      continue;
+    }
+
+    await timelineTable.insertRow(eventRow);
+    existingKeys.add(key);
+  }
+
+  return getTimelineEvents(datastore, null, evidenceId);
+}
+
+async function getTimelineEvents(datastore, caseId, evidenceId) {
+  const timelineTable = datastore.table('TimelineEvent');
+  const rows = await timelineTable.getAllRows();
+  const filteredRows = rows.filter((row) => {
+    const caseMatches = caseId === null ||
+      String(row.CaseMasterID) === String(caseId);
+    const evidenceMatches = evidenceId === undefined ||
+      String(row.EvidenceID) === String(evidenceId);
+
+    return caseMatches && evidenceMatches;
+  });
+
+  return filteredRows.sort((left, right) =>
+    String(left.EventTime).localeCompare(String(right.EventTime))
+  );
+}
+
+function buildTimelineKey(event) {
+  return [
+    event.EvidenceID,
+    event.EventTime,
+    event.EventType,
+    event.Description
+  ].join('|');
 }
 
 function getCatalystDateTime() {
