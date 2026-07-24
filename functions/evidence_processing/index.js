@@ -1,5 +1,9 @@
 'use strict';
 
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
+const crypto = require('crypto');
 const { Readable } = require('stream');
 const catalyst = require('zcatalyst-sdk-node');
 
@@ -51,6 +55,74 @@ async function extractPdfText(pdfBuffer) {
   }
 
   throw new Error('Installed pdf-parse module does not export a compatible parsing API');
+}
+
+/**
+ * Helper to perform Catalyst Zia OCR on an image evidence stream from Stratus.
+ *
+ * Safe temporary-file bridge:
+ * 1. Reads complete Buffer from Stratus stream.
+ * 2. Writes buffer to a temporary file in os.tmpdir() with a random UUID name.
+ * 3. Creates an fs.ReadStream from the temporary file.
+ * 4. Calls app.zia().extractOpticalCharacters(tempReadStream, { language: 'eng', modelType: 'OCR' }).
+ * 5. Safely deletes temporary file in a finally block.
+ */
+async function performZiaOCR(app, objectStream, mimeType) {
+  const buffer = await readStream(objectStream);
+  const byteSize = buffer.length;
+  const isBuffer = Buffer.isBuffer(buffer);
+  const isReadable = objectStream && typeof objectStream.pipe === 'function';
+
+  // SAFE DIAGNOSTICS (No sensitive details, content, or keys)
+  console.log(
+    `[Zia OCR Diagnostics] MIME: ${mimeType || 'unknown'} | SizeBytes: ${byteSize} | InputIsBuffer: ${isBuffer} | InputIsReadable: ${isReadable} | Language: eng | ModelType: OCR`
+  );
+
+  if (byteSize === 0) {
+    throw new Error('Image evidence buffer is empty');
+  }
+
+  let ext = '.tmp';
+  const mime = String(mimeType || '').toLowerCase();
+  if (mime.includes('png')) {
+    ext = '.png';
+  } else if (mime.includes('jpeg') || mime.includes('jpg')) {
+    ext = '.jpg';
+  }
+
+  const tempFileName = `raw-ocr-${crypto.randomUUID()}${ext}`;
+  const tempFilePath = path.join(os.tmpdir(), tempFileName);
+
+  let tempReadStream = null;
+
+  try {
+    await fs.promises.writeFile(tempFilePath, buffer);
+    tempReadStream = fs.createReadStream(tempFilePath);
+
+    const zia = app.zia();
+    const ocrResponse = await zia.extractOpticalCharacters(tempReadStream, {
+      language: 'eng',
+      modelType: 'OCR'
+    });
+
+    return String(ocrResponse?.text || '').trim();
+  } finally {
+    if (tempReadStream && typeof tempReadStream.destroy === 'function') {
+      try {
+        tempReadStream.destroy();
+      } catch {
+        // ignore cleanup error
+      }
+    }
+
+    try {
+      if (fs.existsSync(tempFilePath)) {
+        await fs.promises.unlink(tempFilePath);
+      }
+    } catch (cleanupErr) {
+      console.warn('[Zia OCR Cleanup Warning] Failed to delete temp file:', cleanupErr.message);
+    }
+  }
 }
 
 // Legacy constant — used internally by text-processing pipeline.
@@ -553,29 +625,75 @@ module.exports = async (req, res) => {
       fileName.endsWith('.jpg') ||
       fileName.endsWith('.jpeg')
     ) {
-      // Images are valid, stored evidence. Text/OCR extraction is not yet
-      // implemented. Evidence is marked PROCESSED (storage + integrity
-      // complete). No entity extraction or timeline events are possible
-      // without OCR.
+      await evidenceTable.updateRow({
+        ROWID: evidenceId,
+        ProcessingStatus: 'PROCESSING'
+      });
+      processingStarted = true;
+
+      const bucket = app.stratus().bucket(BUCKET_NAME);
+      const objectStream = await bucket.getObject(storageObjectKey);
+
+      let extractedText = null;
+      let ocrSuccess = false;
+      let ocrNote = null;
+
+      try {
+        const rawText = await performZiaOCR(app, objectStream, mimeType);
+
+        if (rawText.length > 0) {
+          extractedText = rawText;
+          ocrSuccess = true;
+        } else {
+          ocrNote = 'Zia OCR completed, but no text content was detected in this image.';
+        }
+      } catch (ocrErr) {
+        console.warn('[Zia OCR Error] Failed to perform OCR on image:', ocrErr.message);
+        ocrNote = `Zia OCR text extraction encountered an error (${ocrErr.message}). Original evidence is preserved.`;
+      }
+
+      let persistedEntities = [];
+      let persistedEvents = [];
+
+      if (ocrSuccess && extractedText) {
+        const extractedEntities = extractEntities(extractedText);
+        persistedEntities = await persistEntities(
+          datastore,
+          evidenceRow,
+          evidenceId,
+          extractedEntities
+        );
+        const extractedEvents = extractTimelineEvents(extractedText);
+        persistedEvents = await persistTimelineEvents(
+          datastore,
+          evidenceRow,
+          evidenceId,
+          extractedEvents
+        );
+      }
+
       await evidenceTable.updateRow({
         ROWID: evidenceId,
         ProcessingStatus: 'PROCESSED'
       });
-      processingStarted = true;
 
-      return sendJSON(res, 200, {
+      const response = {
         success: true,
         supported: true,
         evidenceId,
         processingStatus: 'PROCESSED',
-        extractedText: null,
-        entities: [],
-        timelineEvents: [],
-        processingNote:
-          'Image evidence has been registered and securely stored. ' +
-          'Text/OCR extraction is not yet available for image evidence. ' +
-          'AI analysis requires text content and is unavailable for this item.'
-      });
+        entities: persistedEntities,
+        timelineEvents: persistedEvents
+      };
+
+      if (ocrSuccess) {
+        response.extractedText = extractedText;
+      } else {
+        response.extractedText = null;
+        response.processingNote = ocrNote;
+      }
+
+      return sendJSON(res, 200, response);
     }
 
     // ---- Unsupported format (should not reach here if upload validates) ---
@@ -1198,8 +1316,29 @@ async function buildTrustedAnalysisContext(datastore, app, evidenceRow, evidence
         );
       }
     }
+  } else if (
+    (mimeType === 'image/png' ||
+      mimeType === 'image/jpeg' ||
+      fileName.endsWith('.png') ||
+      fileName.endsWith('.jpg') ||
+      fileName.endsWith('.jpeg')) &&
+    storageObjectKey
+  ) {
+    // Image: re-extract text via Zia OCR for AI context
+    try {
+      const bucket = app.stratus().bucket(BUCKET_NAME);
+      const objectStream = await bucket.getObject(storageObjectKey);
+      const rawText = await performZiaOCR(app, objectStream, mimeType);
+      if (rawText.length > 0) {
+        extractedText = rawText;
+      }
+    } catch (contextError) {
+      console.warn(
+        'Could not perform Zia OCR for AI context:',
+        contextError.message
+      );
+    }
   }
-  // Images: no text available → extractedText remains null
 
   return {
     evidenceId: String(evidenceId),
