@@ -114,6 +114,71 @@ module.exports = async (req, res) => {
     const evidenceId = getEvidenceId(requestBody);
 
     // -----------------------------------------------------------------
+    // AI INSIGHT REVIEW ACTION
+    // -----------------------------------------------------------------
+    if (action === 'review_ai_insight' || action === 'review') {
+      const parsedBody =
+        typeof requestBody === 'object' && !Buffer.isBuffer(requestBody)
+          ? requestBody
+          : JSON.parse(requestBody.toString() || '{}');
+
+      const insightId = String(parsedBody.insightId || '').trim();
+      const decision = String(parsedBody.decision || '').trim().toUpperCase();
+
+      if (!insightId || !/^[0-9]+$/.test(insightId)) {
+        return sendJSON(res, 400, {
+          success: false,
+          error: 'insightId must be a numeric ROWID'
+        });
+      }
+
+      if (decision !== 'ACCEPTED' && decision !== 'REJECTED') {
+        return sendJSON(res, 400, {
+          success: false,
+          error: 'decision must be ACCEPTED or REJECTED'
+        });
+      }
+
+      const insightTable = datastore.table('AIInsight');
+      let insightRow;
+
+      try {
+        insightRow = await insightTable.getRow(insightId);
+      } catch (fetchErr) {
+        return sendJSON(res, 404, {
+          success: false,
+          error: 'AI insight record was not found'
+        });
+      }
+
+      if (!insightRow) {
+        return sendJSON(res, 404, {
+          success: false,
+          error: 'AI insight record was not found'
+        });
+      }
+
+      await insightTable.updateRow({
+        ROWID: insightId,
+        Status: decision
+      });
+
+      const updatedInsights = await getAIInsights(
+        datastore,
+        insightRow.EvidenceID,
+        null
+      );
+
+      return sendJSON(res, 200, {
+        success: true,
+        insightId,
+        decision,
+        evidenceId: String(insightRow.EvidenceID),
+        insights: updatedInsights
+      });
+    }
+
+    // -----------------------------------------------------------------
     // AI ANALYSIS ACTION — dispatched before existing processing path
     // -----------------------------------------------------------------
     if (action === 'analyze') {
