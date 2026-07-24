@@ -45,6 +45,16 @@ module.exports = async (req, res) => {
           });
         }
 
+        if (view === 'insights') {
+          const insights = await getAIInsights(datastore, null, caseId);
+
+          return sendJSON(res, 200, {
+            success: true,
+            caseId,
+            insights
+          });
+        }
+
         const timelineEvents = await getTimelineEvents(datastore, caseId);
 
         return sendJSON(res, 200, {
@@ -70,6 +80,16 @@ module.exports = async (req, res) => {
         });
       }
 
+      if (view === 'insights') {
+        const insights = await getAIInsights(datastore, evidenceId, null);
+
+        return sendJSON(res, 200, {
+          success: true,
+          evidenceId,
+          insights
+        });
+      }
+
       const entities = await getPersistedEntities(
         datastore,
         evidenceId
@@ -90,8 +110,62 @@ module.exports = async (req, res) => {
     }
 
     const requestBody = await readRequestBody(req);
+    const action = getRequestAction(requestBody);
     const evidenceId = getEvidenceId(requestBody);
 
+    // -----------------------------------------------------------------
+    // AI ANALYSIS ACTION — dispatched before existing processing path
+    // -----------------------------------------------------------------
+    if (action === 'analyze') {
+      if (!evidenceId || !/^[0-9]+$/.test(evidenceId)) {
+        return sendJSON(res, 400, {
+          success: false,
+          error: 'Evidence ROWID must be a numeric value'
+        });
+      }
+
+      evidenceRow = await evidenceTable.getRow(evidenceId);
+
+      if (!evidenceRow) {
+        return sendJSON(res, 404, {
+          success: false,
+          error: 'Evidence record was not found'
+        });
+      }
+
+      if (String(evidenceRow.ProcessingStatus || '') !== 'PROCESSED') {
+        return sendJSON(res, 422, {
+          success: false,
+          error:
+            'AI analysis requires fully processed evidence ' +
+            '(ProcessingStatus must be PROCESSED)'
+        });
+      }
+
+      const context = await buildTrustedAnalysisContext(
+        datastore,
+        app,
+        evidenceRow,
+        evidenceId
+      );
+      const providerResult = runAIAnalysis(context);
+
+      // If a real provider returns a validated insight in a future task,
+      // validateStructuredInsight and persistAIInsight will be called here.
+      // For now the provider stub returns AI_PROVIDER_NOT_CONFIGURED.
+
+      return sendJSON(res, 200, {
+        success: true,
+        evidenceId,
+        providerStatus: providerResult.providerStatus,
+        message: providerResult.message,
+        insights: []
+      });
+    }
+
+    // -----------------------------------------------------------------
+    // EXISTING EVIDENCE PROCESSING PATH (unchanged)
+    // -----------------------------------------------------------------
     if (!evidenceId || !/^[0-9]+$/.test(evidenceId)) {
       return sendJSON(res, 400, {
         success: false,
@@ -692,4 +766,195 @@ function sendJSON(res, statusCode, data) {
     'Content-Type': 'application/json'
   });
   res.end(JSON.stringify(data));
+}
+
+// -----------------------------------------------------------------------
+// AI INSIGHT RETRIEVAL
+// -----------------------------------------------------------------------
+
+async function getAIInsights(datastore, evidenceId, caseId) {
+  const insightTable = datastore.table('AIInsight');
+  const rows = await insightTable.getAllRows();
+
+  return rows
+    .filter((row) => {
+      if (evidenceId !== null && evidenceId !== undefined) {
+        return String(row.EvidenceID) === String(evidenceId);
+      }
+
+      if (caseId !== null && caseId !== undefined) {
+        return String(row.CaseMasterID) === String(caseId);
+      }
+
+      return false;
+    })
+    .sort((a, b) =>
+      String(b.GeneratedAt || '').localeCompare(String(a.GeneratedAt || ''))
+    );
+}
+
+// -----------------------------------------------------------------------
+// AI PROVIDER BOUNDARY
+// -----------------------------------------------------------------------
+
+/**
+ * Build a trusted analysis context from persisted server-side data.
+ *
+ * Assembles Evidence metadata, ExtractedEntity records, TimelineEvent records,
+ * and extracted text from Stratus — all from trusted Catalyst Data Store.
+ *
+ * Never accepts CaseMasterID, EvidenceID, or evidence text from the browser.
+ */
+async function buildTrustedAnalysisContext(datastore, app, evidenceRow, evidenceId) {
+  const entities = await getPersistedEntities(datastore, evidenceId);
+  const timelineEvents = await getTimelineEvents(datastore, null, evidenceId);
+
+  let extractedText = null;
+
+  if (isSupportedTextEvidence(evidenceRow)) {
+    const storageObjectKey = String(evidenceRow.StorageObjectKey || '').trim();
+
+    if (storageObjectKey) {
+      try {
+        const bucket = app.stratus().bucket(BUCKET_NAME);
+        const objectStream = await bucket.getObject(storageObjectKey);
+        const contentBuffer = await readStream(objectStream);
+        extractedText = contentBuffer.toString('utf8');
+      } catch (contextError) {
+        console.warn(
+          'Could not retrieve evidence text for AI context:',
+          contextError.message
+        );
+      }
+    }
+  }
+
+  return {
+    evidenceId: String(evidenceId),
+    caseMasterId: String(evidenceRow.CaseMasterID || ''),
+    evidenceMetadata: {
+      originalFileName: String(evidenceRow.OriginalFileName || ''),
+      evidenceType: String(evidenceRow.EvidenceType || ''),
+      mimeType: String(evidenceRow.MimeType || ''),
+      processingStatus: String(evidenceRow.ProcessingStatus || ''),
+      uploadedAt: String(evidenceRow.UploadedAt || ''),
+      sha256Hash: String(evidenceRow.SHA256Hash || '')
+    },
+    extractedText,
+    entities,
+    timelineEvents,
+    contextBuiltAt: getCatalystDateTime()
+  };
+}
+
+/**
+ * AI analysis provider boundary.
+ *
+ * This is the sole integration point for an external AI model.
+ * A concrete provider will replace this stub in the next task.
+ *
+ * Current behaviour: returns AI_PROVIDER_NOT_CONFIGURED.
+ * No analysis is performed. No AIInsight rows are persisted.
+ *
+ * Rules that must remain true when a real provider is plugged in:
+ * - Must NOT fabricate investigative conclusions.
+ * - Must NOT persist AIInsight rows with manufactured content.
+ * - Must NOT set CaseMasterID or EvidenceID from model output.
+ * - Must NOT trust confidence values without validation.
+ */
+function runAIAnalysis(context) {
+  void context; // passed for future provider — do not remove parameter
+  return {
+    providerStatus: 'AI_PROVIDER_NOT_CONFIGURED',
+    message: 'AI analysis provider is not configured. No analysis was performed.',
+    insight: null
+  };
+}
+
+/**
+ * Validate the structured insight contract produced by the AI provider.
+ *
+ * Called before persistence to ensure model output conforms to the
+ * required shape. Model output must never be trusted blindly.
+ */
+function validateStructuredInsight(insight) {
+  if (!insight || typeof insight !== 'object') {
+    throw new Error('Insight must be a non-null object');
+  }
+
+  const requiredStrings = ['InsightType', 'Title', 'Description'];
+
+  for (const field of requiredStrings) {
+    if (
+      !insight[field] ||
+      typeof insight[field] !== 'string' ||
+      !insight[field].trim()
+    ) {
+      throw new Error(
+        `Insight.${field} is required and must be a non-empty string`
+      );
+    }
+  }
+
+  if (insight.Confidence !== null && insight.Confidence !== undefined) {
+    const confidence = Number(insight.Confidence);
+
+    if (Number.isNaN(confidence) || confidence < 0 || confidence > 1) {
+      throw new Error(
+        'Insight.Confidence must be null or a number between 0 and 1'
+      );
+    }
+  }
+
+  return {
+    InsightType: String(insight.InsightType).trim().toUpperCase(),
+    Title: String(insight.Title).trim().slice(0, 500),
+    Description: String(insight.Description).trim().slice(0, 2000),
+    Confidence: insight.Confidence != null ? Number(insight.Confidence) : null
+  };
+}
+
+/**
+ * Persist a validated AI insight to the AIInsight Data Store table.
+ *
+ * CaseMasterID, EvidenceID, Status, and GeneratedAt are always set
+ * server-side from trusted context. Model output never controls these fields.
+ */
+async function persistAIInsight(datastore, context, validatedInsight) {
+  const insightTable = datastore.table('AIInsight');
+
+  const row = {
+    CaseMasterID: context.caseMasterId,
+    EvidenceID: context.evidenceId,
+    InsightType: validatedInsight.InsightType,
+    Title: validatedInsight.Title,
+    Description: validatedInsight.Description,
+    Status: 'PENDING_REVIEW',
+    GeneratedAt: getCatalystDateTime()
+  };
+
+  if (validatedInsight.Confidence !== null) {
+    row.Confidence = validatedInsight.Confidence;
+  }
+
+  return insightTable.insertRow(row);
+}
+
+/**
+ * Extract the action field from a POST request body.
+ */
+function getRequestAction(body) {
+  if (body && typeof body === 'object' && !Buffer.isBuffer(body)) {
+    return String(body.action || '').trim().toLowerCase();
+  }
+
+  if (typeof body === 'string' || Buffer.isBuffer(body)) {
+    try {
+      return getRequestAction(JSON.parse(body.toString()));
+    } catch {
+      return '';
+    }
+  }
+
+  return '';
 }

@@ -69,3 +69,17 @@ Response Headers: {"server":"ZGS","date":"Fri, 24 Jul 2026 06:24:20 GMT","conten
 [info] [2026-07-24T06:25:08.943Z] : [react-plugin]: Note that the development build is not optimized.
 [info] [2026-07-24T06:25:08.943Z] : [react-plugin]: To create a production build, use npm run build.
 [info] [2026-07-24T06:25:08.943Z] : [react-plugin]: 
+[info] [2026-07-24T06:25:09.563Z] : [1784874309558]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-24T06:25:09.724Z] : [1784874309724]  "GET"  "/app/manifest.json"
+[info] [2026-07-24T06:25:10.279Z] : [1784874310278]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-24T06:25:10.583Z] : [1784874310583]  "GET"  "/app/logo192.png"
+[info] [2026-07-24T06:25:10.587Z] : [1784874310587]  "GET"  "/app/favicon.ico"
+[info] [2026-07-24T06:25:12.233Z] : [1784874312233]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-24T06:27:41.767Z] : [1784874461766]  "GET"  "/app/favicon.ico"
+[info] [2026-07-24T06:27:41.819Z] : [1784874461819]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T06:27:41.823Z] : [1784874461823]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T06:27:41.828Z] : [1784874461828]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T06:27:42.504Z] : [1784874462503]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T06:27:42.995Z] : [1784874462995]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T06:27:43.136Z] : [1784874463135]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T06:27:46.000Z] : [1784874465998]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"

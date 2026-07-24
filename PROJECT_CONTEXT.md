@@ -929,6 +929,7 @@ Wait for an explicit task prompt before implementing anything.
 The current Intelligence Graph and correlation implementation are now part of
 the stable project baseline.
 ---
+
 # 30. Future Roadmap
 
 Potential later work:
