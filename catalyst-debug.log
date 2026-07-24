@@ -83,3 +83,70 @@ Response Headers: {"server":"ZGS","date":"Fri, 24 Jul 2026 06:24:20 GMT","conten
 [info] [2026-07-24T06:27:42.995Z] : [1784874462995]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
 [info] [2026-07-24T06:27:43.136Z] : [1784874463135]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
 [info] [2026-07-24T06:27:46.000Z] : [1784874465998]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:00:47.924Z] : 
+change of index.js in evidence_processing detected. Preparing your function, please wait...
+[debug] [2026-07-24T07:00:47.964Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[info] [2026-07-24T07:00:50.184Z] : i AdvancedIO[evidence_processing]: ready!
+[info] [2026-07-24T07:00:50.185Z] : i AdvancedIO[evidence_processing]: http://localhost:3000/server/evidence_processing/
+[info] [2026-07-24T07:01:42.245Z] : [react-plugin]: Compiling...
+[info] [2026-07-24T07:01:45.815Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-24T07:01:45.815Z] : [react-plugin]: 
+[info] [2026-07-24T07:01:45.816Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-24T07:01:45.816Z] : [react-plugin]: 
+[info] [2026-07-24T07:01:45.817Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-24T07:01:45.818Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-24T07:01:45.818Z] : [react-plugin]: 
+[info] [2026-07-24T07:01:45.818Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-24T07:01:45.819Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-24T07:01:45.819Z] : [react-plugin]: 
+[info] [2026-07-24T07:01:46.137Z] : [1784876506136]  "GET"  "/app/main.2d93b1a71dba99f24bc1.hot-update.json"
+[info] [2026-07-24T07:01:46.390Z] : [1784876506389]  "GET"  "/app/main.2d93b1a71dba99f24bc1.hot-update.js"
+[info] [2026-07-24T07:01:46.965Z] : [1784876506965]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T07:01:47.283Z] : [1784876507283]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T07:01:47.287Z] : [1784876507286]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:02:13.748Z] : [react-plugin]: Compiling...
+[info] [2026-07-24T07:02:14.719Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-24T07:02:14.720Z] : [react-plugin]: 
+[info] [2026-07-24T07:02:14.720Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-24T07:02:14.721Z] : [react-plugin]: 
+[info] [2026-07-24T07:02:14.721Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-24T07:02:14.722Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-24T07:02:14.722Z] : [react-plugin]: 
+[info] [2026-07-24T07:02:14.723Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-24T07:02:14.724Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-24T07:02:14.725Z] : [react-plugin]: 
+[info] [2026-07-24T07:02:15.129Z] : [1784876535074]  "GET"  "/app/main.2200f03307ec7a06bd5f.hot-update.json"
+[info] [2026-07-24T07:02:15.750Z] : [1784876535744]  "GET"  "/app/main.2200f03307ec7a06bd5f.hot-update.js"
+[info] [2026-07-24T07:11:54.529Z] : [1784877114528]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-24T07:11:54.565Z] : [1784877114564]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-24T07:11:54.895Z] : [1784877114893]  "GET"  "/app/manifest.json"
+[info] [2026-07-24T07:11:55.007Z] : [1784877115005]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T07:11:55.312Z] : [1784877115312]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T07:11:55.317Z] : [1784877115316]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:11:55.328Z] : [1784877115327]  "GET"  "/app/favicon.ico"
+[info] [2026-07-24T07:11:55.342Z] : [1784877115341]  "GET"  "/app/logo192.png"
+[info] [2026-07-24T07:12:00.438Z] : [1784877120438]  "GET"  "/app/favicon.ico"
+[info] [2026-07-24T07:12:00.448Z] : [1784877120447]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-24T07:12:07.702Z] : [1784877127702]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T07:12:07.718Z] : [1784877127718]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T07:12:07.734Z] : [1784877127734]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-24T07:12:07.958Z] : [1784877127957]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:12:30.561Z] : [1784877150560]  "GET"  "/app/favicon.ico"
+[info] [2026-07-24T07:12:30.583Z] : [1784877150582]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T07:12:30.589Z] : [1784877150588]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T07:12:30.593Z] : [1784877150593]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:12:30.886Z] : [1784877150886]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T07:12:31.193Z] : [1784877151193]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T07:12:31.305Z] : [1784877151304]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:12:33.581Z] : [1784877153580]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-24T07:12:33.585Z] : [1784877153584]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-24T07:12:34.298Z] : [1784877154297]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:12:39.022Z] : [1784877159021]  "POST"  "/server/evidence_processing/"
+[info] [2026-07-24T07:13:12.255Z] : [1784877192255]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T07:13:17.445Z] : [1784877197444]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-24T07:13:25.565Z] : [1784877205564]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-24T07:14:29.332Z] : [1784877269332]  "POST"  "/server/evidence_upload/"
+[info] [2026-07-24T07:14:37.023Z] : [1784877277017]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-24T07:14:49.143Z] : [1784877289142]  "GET"  "/server/evidence_processing/?evidenceId=48911000000042007"
+[info] [2026-07-24T07:14:49.147Z] : [1784877289147]  "GET"  "/server/evidence_processing/?evidenceId=48911000000042007&view=insights"
+[info] [2026-07-24T07:14:50.048Z] : [1784877290048]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
