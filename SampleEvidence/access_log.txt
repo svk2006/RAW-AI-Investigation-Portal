@@ -1,0 +1,6 @@
+Timestamp: 2026-07-21 20:48:35
+Security access log recorded suspicious activity.
+
+Source IP: 203.0.113.42
+Associated Transaction: TXN-784291
+Requested Domain: secure-login.synthetic-example.test

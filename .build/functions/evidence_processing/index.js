@@ -25,6 +25,7 @@ module.exports = async (req, res) => {
       const caseId = String(
         parsedUrl.searchParams.get('caseId') || ''
       ).trim();
+      const view = parsedUrl.searchParams.get('view');
 
       if (caseId) {
         if (!/^[0-9]+$/.test(caseId)) {
@@ -34,10 +35,17 @@ module.exports = async (req, res) => {
           });
         }
 
-        const timelineEvents = await getTimelineEvents(
-          datastore,
-          caseId
-        );
+        if (view === 'graph') {
+          const graph = await getCorrelationGraph(datastore, caseId);
+
+          return sendJSON(res, 200, {
+            success: true,
+            caseId,
+            graph
+          });
+        }
+
+        const timelineEvents = await getTimelineEvents(datastore, caseId);
 
         return sendJSON(res, 200, {
           success: true,
@@ -459,6 +467,128 @@ async function getPersistedEntities(datastore, evidenceId) {
   return rows.filter((row) =>
     String(row.EvidenceID) === String(evidenceId)
   );
+}
+
+async function getCorrelationGraph(datastore, caseId) {
+  const evidenceTable = datastore.table('Evidence');
+  const entityTable = datastore.table('ExtractedEntity');
+  const evidenceRows = (await evidenceTable.getAllRows()).filter((row) =>
+    String(row.CaseMasterID) === String(caseId)
+  );
+  const evidenceIds = new Set(
+    evidenceRows.map((row) => String(row.ROWID))
+  );
+  const entityRows = (await entityTable.getAllRows()).filter((row) =>
+    evidenceIds.has(String(row.EvidenceID)) &&
+    String(row.CaseMasterID) === String(caseId)
+  );
+  const groupedEntities = new Map();
+
+  for (const row of entityRows) {
+    const normalizedValue = normalizeCorrelationValue(
+      row.EntityType,
+      row.EntityValue
+    );
+
+    if (!normalizedValue) {
+      continue;
+    }
+
+    const key = `${String(row.EntityType || '').toUpperCase()}:${normalizedValue}`;
+    const group = groupedEntities.get(key) || {
+      EntityType: String(row.EntityType || '').toUpperCase(),
+      EntityValue: String(row.EntityValue || '').trim(),
+      normalizedValue,
+      evidenceIds: new Set()
+    };
+
+    group.evidenceIds.add(String(row.EvidenceID));
+    groupedEntities.set(key, group);
+  }
+
+  const correlatedGroups = Array.from(groupedEntities.values())
+    .filter((group) => group.evidenceIds.size >= 2);
+  const correlatedEvidenceIds = new Set(
+    correlatedGroups.flatMap((group) => Array.from(group.evidenceIds))
+  );
+  const nodes = [];
+  const edges = [];
+
+  for (const evidence of evidenceRows) {
+    const evidenceId = String(evidence.ROWID);
+
+    if (!correlatedEvidenceIds.has(evidenceId)) {
+      continue;
+    }
+
+    nodes.push({
+      id: `evidence:${evidenceId}`,
+      type: 'EVIDENCE',
+      evidenceId,
+      label: String(evidence.OriginalFileName || evidenceId)
+    });
+  }
+
+  for (const group of correlatedGroups) {
+    const entityId = `entity:${group.EntityType}:${group.normalizedValue}`;
+    nodes.push({
+      id: entityId,
+      type: 'ENTITY',
+      entityType: group.EntityType,
+      entityValue: group.EntityValue,
+      evidenceCount: group.evidenceIds.size
+    });
+
+    for (const evidenceId of group.evidenceIds) {
+      edges.push({
+        id: `contains:${evidenceId}:${entityId}`,
+        source: `evidence:${evidenceId}`,
+        target: entityId,
+        type: 'CONTAINS'
+      });
+    }
+  }
+
+  return {
+    nodes,
+    edges,
+    correlations: correlatedGroups.map((group) => ({
+      entityType: group.EntityType,
+      entityValue: group.EntityValue,
+      evidenceIds: Array.from(group.evidenceIds),
+      evidenceCount: group.evidenceIds.size
+    }))
+  };
+}
+
+function normalizeCorrelationValue(entityType, value) {
+  const type = String(entityType || '').toUpperCase();
+  const rawValue = String(value || '').trim();
+
+  if (!rawValue) {
+    return '';
+  }
+
+  if (type === 'EMAIL' || type === 'DOMAIN' || type === 'TRANSACTION_REFERENCE') {
+    return rawValue.toLowerCase();
+  }
+
+  if (type === 'IP_ADDRESS') {
+    return isValidIPv4(rawValue) ? rawValue : '';
+  }
+
+  if (type === 'PHONE') {
+    const normalizedPhone = rawValue.replace(/[\s().-]/g, '');
+    return /^\+?\d{7,15}$/.test(normalizedPhone)
+      ? normalizedPhone
+      : '';
+  }
+
+  if (type === 'URL') {
+    return trimTrailingUrlPunctuation(rawValue);
+  }
+
+  return rawValue;
 }
 
 async function persistTimelineEvents(datastore, evidenceRow, evidenceId, events) {
