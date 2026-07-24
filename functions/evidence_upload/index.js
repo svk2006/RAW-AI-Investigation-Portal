@@ -142,6 +142,39 @@ module.exports = async (req, res) => {
 
 				/*
 				 * -------------------------------------------------
+				 * VALIDATE MIME TYPE
+				 *
+				 * Only accept evidence types that the system
+				 * supports for storage. Unsupported formats are
+				 * rejected before any Stratus interaction.
+				 * -------------------------------------------------
+				 */
+
+				const ACCEPTED_MIME_TYPES = new Set([
+					'text/plain',
+					'application/pdf',
+					'image/png',
+					'image/jpeg'
+				]);
+
+				const submittedMime = String(
+					uploadedFile.mimeType || ''
+				).toLowerCase().split(';')[0].trim();
+
+				if (!ACCEPTED_MIME_TYPES.has(submittedMime)) {
+					return sendJSON(res, 415, {
+						success: false,
+						error:
+							'Unsupported evidence file type. ' +
+							'RAW currently accepts: ' +
+							'plain text (.txt), PDF (.pdf), ' +
+							'PNG image (.png), ' +
+							'JPEG image (.jpg/.jpeg).'
+					});
+				}
+
+				/*
+				 * -------------------------------------------------
 				 * GENERATE SHA-256
 				 * -------------------------------------------------
 				 */

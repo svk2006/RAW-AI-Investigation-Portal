@@ -3,7 +3,57 @@
 const { Readable } = require('stream');
 const catalyst = require('zcatalyst-sdk-node');
 
+// pdf-parse is required for PDF text extraction (Option B).
+// It must be installed via: npm install pdf-parse
+// in functions/evidence_processing/ before use.
+let pdfParse;
+try {
+  pdfParse = require('pdf-parse');
+} catch {
+  pdfParse = null;
+}
+
 const BUCKET_NAME = 'raw-evidence-vault';
+
+// MIME types that can be stored as evidence.
+const ACCEPTED_MIME_TYPES = new Set([
+  'text/plain',
+  'application/pdf',
+  'image/png',
+  'image/jpeg'
+]);
+
+/**
+ * Helper to extract text from a PDF buffer using pdf-parse.
+ * Supports both pdf-parse v2.x (class PDFParse exported)
+ * and pdf-parse v1.x (function export).
+ */
+async function extractPdfText(pdfBuffer) {
+  if (!pdfParse) {
+    throw new Error('pdf-parse module is not loaded');
+  }
+
+  // Handle pdf-parse v2.x (class PDFParse exported)
+  if (pdfParse.PDFParse) {
+    const parser = new pdfParse.PDFParse({ data: pdfBuffer });
+    const result = await parser.getText();
+    return String(result?.text || '').trim();
+  }
+
+  // Handle pdf-parse v1.x (directly callable function or .default)
+  const parseFn = typeof pdfParse === 'function'
+    ? pdfParse
+    : pdfParse?.default;
+
+  if (typeof parseFn === 'function') {
+    const pdfData = await parseFn(pdfBuffer);
+    return String(pdfData?.text || '').trim();
+  }
+
+  throw new Error('Installed pdf-parse module does not export a compatible parsing API');
+}
+
+// Legacy constant — used internally by text-processing pipeline.
 const SUPPORTED_MIME_TYPES = new Set(['text/plain']);
 
 module.exports = async (req, res) => {
@@ -26,6 +76,70 @@ module.exports = async (req, res) => {
         parsedUrl.searchParams.get('caseId') || ''
       ).trim();
       const view = parsedUrl.searchParams.get('view');
+      const action = parsedUrl.searchParams.get('action');
+
+      // ---------------------------------------------------------------
+      // SECURE EVIDENCE DOWNLOAD / PREVIEW
+      // ---------------------------------------------------------------
+      if (action === 'download' || action === 'preview') {
+        if (!evidenceId || !/^[0-9]+$/.test(evidenceId)) {
+          return sendJSON(res, 400, {
+            success: false,
+            error: 'Evidence ROWID must be a numeric value'
+          });
+        }
+
+        const dlRow = await evidenceTable.getRow(evidenceId);
+
+        if (!dlRow) {
+          return sendJSON(res, 404, {
+            success: false,
+            error: 'Evidence record was not found'
+          });
+        }
+
+        const dlKey = String(dlRow.StorageObjectKey || '').trim();
+        if (!dlKey) {
+          return sendJSON(res, 422, {
+            success: false,
+            error: 'Evidence record has no storage reference'
+          });
+        }
+
+        const dlMime = String(dlRow.MimeType || 'application/octet-stream').trim();
+        const dlFileName = String(dlRow.OriginalFileName || 'evidence-file').trim();
+
+        // Sanitize filename for Content-Disposition header
+        const safeDispName = dlFileName.replace(/["\\]/g, '_');
+
+        // 'preview' streams inline (browser renders); 'download' forces save-as
+        const disposition = action === 'preview'
+          ? `inline; filename="${safeDispName}"`
+          : `attachment; filename="${safeDispName}"`;
+
+        const dlBucket = app.stratus().bucket(BUCKET_NAME);
+        const dlStream = await dlBucket.getObject(dlKey);
+
+        if (!res.writableEnded) {
+          res.writeHead(200, {
+            'Content-Type': dlMime,
+            'Content-Disposition': disposition,
+            'Cache-Control': 'no-store'
+          });
+        }
+
+        // Pipe Stratus stream directly to response — never expose dlKey or URL
+        if (typeof dlStream.pipe === 'function') {
+          dlStream.pipe(res);
+        } else {
+          // Fallback: buffer and write
+          const dlBuf = await readStream(dlStream);
+          if (!res.writableEnded) {
+            res.end(dlBuf);
+          }
+        }
+        return;
+      }
 
       if (caseId) {
         if (!/^[0-9]+$/.test(caseId)) {
@@ -271,7 +385,7 @@ module.exports = async (req, res) => {
     }
 
     // -----------------------------------------------------------------
-    // EXISTING EVIDENCE PROCESSING PATH (unchanged)
+    // MULTI-FORMAT EVIDENCE PROCESSING PATH
     // -----------------------------------------------------------------
     if (!evidenceId || !/^[0-9]+$/.test(evidenceId)) {
       return sendJSON(res, 400, {
@@ -297,53 +411,180 @@ module.exports = async (req, res) => {
       });
     }
 
-    if (!isSupportedTextEvidence(evidenceRow)) {
-      return sendJSON(res, 422, {
-        success: false,
-        supported: false,
-        error: 'This processor currently supports plain-text evidence only'
+    const mimeType = String(evidenceRow.MimeType || '').toLowerCase().trim();
+    const fileName = String(evidenceRow.OriginalFileName || '').toLowerCase().trim();
+
+    // ---- TXT path (unchanged) ----------------------------------------
+    if (isSupportedTextEvidence(evidenceRow)) {
+      await evidenceTable.updateRow({
+        ROWID: evidenceId,
+        ProcessingStatus: 'PROCESSING'
+      });
+      processingStarted = true;
+
+      const bucket = app.stratus().bucket(BUCKET_NAME);
+      const objectStream = await bucket.getObject(storageObjectKey);
+      const contentBuffer = await readStream(objectStream);
+      const extractedText = contentBuffer.toString('utf8');
+
+      const extractedEntities = extractEntities(extractedText);
+      const persistedEntities = await persistEntities(
+        datastore,
+        evidenceRow,
+        evidenceId,
+        extractedEntities
+      );
+      const extractedEvents = extractTimelineEvents(extractedText);
+      const persistedEvents = await persistTimelineEvents(
+        datastore,
+        evidenceRow,
+        evidenceId,
+        extractedEvents
+      );
+
+      await evidenceTable.updateRow({
+        ROWID: evidenceId,
+        ProcessingStatus: 'PROCESSED'
+      });
+
+      return sendJSON(res, 200, {
+        success: true,
+        supported: true,
+        evidenceId,
+        processingStatus: 'PROCESSED',
+        extractedText,
+        entities: persistedEntities,
+        timelineEvents: persistedEvents
       });
     }
 
-    await evidenceTable.updateRow({
-      ROWID: evidenceId,
-      ProcessingStatus: 'PROCESSING'
-    });
-    processingStarted = true;
+    // ---- PDF path --------------------------------------------------------
+    if (mimeType === 'application/pdf' || fileName.endsWith('.pdf')) {
+      await evidenceTable.updateRow({
+        ROWID: evidenceId,
+        ProcessingStatus: 'PROCESSING'
+      });
+      processingStarted = true;
 
-    const bucket = app.stratus().bucket(BUCKET_NAME);
-    const objectStream = await bucket.getObject(storageObjectKey);
-    const contentBuffer = await readStream(objectStream);
-    const extractedText = contentBuffer.toString('utf8');
+      const bucket = app.stratus().bucket(BUCKET_NAME);
+      const objectStream = await bucket.getObject(storageObjectKey);
+      const pdfBuffer = await readStream(objectStream);
 
-    const extractedEntities = extractEntities(extractedText);
-    const persistedEntities = await persistEntities(
-      datastore,
-      evidenceRow,
-      evidenceId,
-      extractedEntities
-    );
-    const extractedEvents = extractTimelineEvents(extractedText);
-    const persistedEvents = await persistTimelineEvents(
-      datastore,
-      evidenceRow,
-      evidenceId,
-      extractedEvents
-    );
+      let extractedText = null;
+      let pdfTextAvailable = false;
+      let pdfNote = null;
 
-    await evidenceTable.updateRow({
-      ROWID: evidenceId,
-      ProcessingStatus: 'PROCESSED'
-    });
+      if (pdfParse) {
+        try {
+          const rawText = await extractPdfText(pdfBuffer);
 
-    return sendJSON(res, 200, {
-      success: true,
-      supported: true,
-      evidenceId,
-      processingStatus: 'PROCESSED',
-      extractedText,
-      entities: persistedEntities,
-      timelineEvents: persistedEvents
+          if (rawText.length > 0) {
+            extractedText = rawText;
+            pdfTextAvailable = true;
+          } else {
+            // Empty text → likely a scanned/image-only PDF
+            pdfNote = 'PDF appears to be scanned or image-only. ' +
+              'No embedded text was found. OCR is not yet available.';
+          }
+        } catch (pdfErr) {
+          console.warn('[PDF Processing] pdf-parse error:', pdfErr.message);
+          pdfNote = 'PDF text extraction encountered an error. ' +
+            'The original evidence is preserved in secure storage.';
+        }
+      } else {
+        pdfNote = 'pdf-parse library is not installed. ' +
+          'PDF text extraction is unavailable. ' +
+          'Install pdf-parse in functions/evidence_processing/.';
+        console.warn('[PDF Processing] pdf-parse module not available.');
+      }
+
+      let persistedEntities = [];
+      let persistedEvents = [];
+
+      if (pdfTextAvailable && extractedText) {
+        const extractedEntities = extractEntities(extractedText);
+        persistedEntities = await persistEntities(
+          datastore,
+          evidenceRow,
+          evidenceId,
+          extractedEntities
+        );
+        const extractedEvents = extractTimelineEvents(extractedText);
+        persistedEvents = await persistTimelineEvents(
+          datastore,
+          evidenceRow,
+          evidenceId,
+          extractedEvents
+        );
+      }
+
+      // Evidence is valid and stored. Status PROCESSED reflects storage +
+      // extraction completion (or extraction unavailability).
+      // No new schema values introduced.
+      await evidenceTable.updateRow({
+        ROWID: evidenceId,
+        ProcessingStatus: 'PROCESSED'
+      });
+
+      const response = {
+        success: true,
+        supported: true,
+        evidenceId,
+        processingStatus: 'PROCESSED',
+        entities: persistedEntities,
+        timelineEvents: persistedEvents
+      };
+
+      if (pdfTextAvailable) {
+        response.extractedText = extractedText;
+      } else {
+        response.extractedText = null;
+        response.processingNote = pdfNote;
+      }
+
+      return sendJSON(res, 200, response);
+    }
+
+    // ---- Image path (PNG / JPG / JPEG) -----------------------------------
+    if (
+      mimeType === 'image/png' ||
+      mimeType === 'image/jpeg' ||
+      fileName.endsWith('.png') ||
+      fileName.endsWith('.jpg') ||
+      fileName.endsWith('.jpeg')
+    ) {
+      // Images are valid, stored evidence. Text/OCR extraction is not yet
+      // implemented. Evidence is marked PROCESSED (storage + integrity
+      // complete). No entity extraction or timeline events are possible
+      // without OCR.
+      await evidenceTable.updateRow({
+        ROWID: evidenceId,
+        ProcessingStatus: 'PROCESSED'
+      });
+      processingStarted = true;
+
+      return sendJSON(res, 200, {
+        success: true,
+        supported: true,
+        evidenceId,
+        processingStatus: 'PROCESSED',
+        extractedText: null,
+        entities: [],
+        timelineEvents: [],
+        processingNote:
+          'Image evidence has been registered and securely stored. ' +
+          'Text/OCR extraction is not yet available for image evidence. ' +
+          'AI analysis requires text content and is unavailable for this item.'
+      });
+    }
+
+    // ---- Unsupported format (should not reach here if upload validates) ---
+    return sendJSON(res, 422, {
+      success: false,
+      supported: false,
+      error:
+        'This file format is not currently supported for processing. ' +
+        'Accepted formats: TXT, PDF, PNG, JPG/JPEG.'
     });
   } catch (error) {
     console.error('Evidence processing error:', error);
@@ -917,10 +1158,12 @@ async function buildTrustedAnalysisContext(datastore, app, evidenceRow, evidence
   const timelineEvents = await getTimelineEvents(datastore, null, evidenceId);
 
   let extractedText = null;
+  const mimeType = String(evidenceRow.MimeType || '').toLowerCase().trim();
+  const fileName = String(evidenceRow.OriginalFileName || '').toLowerCase().trim();
+  const storageObjectKey = String(evidenceRow.StorageObjectKey || '').trim();
 
   if (isSupportedTextEvidence(evidenceRow)) {
-    const storageObjectKey = String(evidenceRow.StorageObjectKey || '').trim();
-
+    // Plain-text: read directly as UTF-8
     if (storageObjectKey) {
       try {
         const bucket = app.stratus().bucket(BUCKET_NAME);
@@ -934,7 +1177,29 @@ async function buildTrustedAnalysisContext(datastore, app, evidenceRow, evidence
         );
       }
     }
+  } else if (
+    (mimeType === 'application/pdf' || fileName.endsWith('.pdf')) &&
+    pdfParse
+  ) {
+    // PDF: re-extract embedded text for AI context
+    if (storageObjectKey) {
+      try {
+        const bucket = app.stratus().bucket(BUCKET_NAME);
+        const objectStream = await bucket.getObject(storageObjectKey);
+        const pdfBuffer = await readStream(objectStream);
+        const rawText = await extractPdfText(pdfBuffer);
+        if (rawText.length > 0) {
+          extractedText = rawText;
+        }
+      } catch (contextError) {
+        console.warn(
+          'Could not extract PDF text for AI context:',
+          contextError.message
+        );
+      }
+    }
   }
+  // Images: no text available → extractedText remains null
 
   return {
     evidenceId: String(evidenceId),

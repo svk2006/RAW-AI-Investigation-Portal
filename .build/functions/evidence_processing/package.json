@@ -4,6 +4,7 @@
   "main": "index.js",
   "author": "venkatakrishnan1409@gmail.com",
   "dependencies": {
+    "pdf-parse": "^2.4.5",
     "zcatalyst-sdk-node": "^3.4.0"
   }
 }
