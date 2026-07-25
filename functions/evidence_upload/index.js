@@ -4,6 +4,7 @@ const Busboy = require('busboy');
 const crypto = require('crypto');
 const { Readable } = require('stream');
 const catalyst = require('zcatalyst-sdk-node');
+const { PERMISSIONS, authenticateAndAuthorize } = require('./rawAuth');
 
 module.exports = async (req, res) => {
 	try {
@@ -121,6 +122,14 @@ module.exports = async (req, res) => {
 						success: false,
 						error:
 							'caseId is required'
+					});
+				}
+
+				const auth = await authenticateAndAuthorize(app, PERMISSIONS.UPLOAD_EVIDENCE, fields.caseId);
+				if (!auth.authorized) {
+					return sendJSON(res, auth.status, {
+						success: false,
+						error: auth.error
 					});
 				}
 

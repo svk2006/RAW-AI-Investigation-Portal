@@ -6,6 +6,7 @@ const os = require('os');
 const crypto = require('crypto');
 const { Readable } = require('stream');
 const catalyst = require('zcatalyst-sdk-node');
+const { PERMISSIONS, authenticateAndAuthorize } = require('./rawAuth');
 
 // pdf-parse is required for PDF text extraction (Option B).
 // It must be installed via: npm install pdf-parse
@@ -170,6 +171,14 @@ module.exports = async (req, res) => {
           });
         }
 
+        const auth = await authenticateAndAuthorize(app, PERMISSIONS.DOWNLOAD_EVIDENCE, String(dlRow.CaseMasterID));
+        if (!auth.authorized) {
+          return sendJSON(res, auth.status, {
+            success: false,
+            error: auth.error
+          });
+        }
+
         const dlKey = String(dlRow.StorageObjectKey || '').trim();
         if (!dlKey) {
           return sendJSON(res, 422, {
@@ -218,6 +227,14 @@ module.exports = async (req, res) => {
           return sendJSON(res, 400, {
             success: false,
             error: 'Case ROWID must be a numeric value'
+          });
+        }
+
+        const caseAuth = await authenticateAndAuthorize(app, PERMISSIONS.VIEW_EVIDENCE, caseId);
+        if (!caseAuth.authorized) {
+          return sendJSON(res, caseAuth.status, {
+            success: false,
+            error: caseAuth.error
           });
         }
 

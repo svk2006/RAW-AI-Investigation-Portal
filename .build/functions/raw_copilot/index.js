@@ -1,6 +1,7 @@
 'use strict';
 
 const catalyst = require('zcatalyst-sdk-node');
+const { PERMISSIONS, authenticateAndAuthorize } = require('./rawAuth');
 const { Readable } = require('stream');
 
 const BUCKET_NAME = 'raw-evidence-vault';
@@ -45,6 +46,14 @@ module.exports = async (req, res) => {
     const app = catalyst.initialize(req);
     const datastore = app.datastore();
     const zcql = app.zcql();
+
+    const auth = await authenticateAndAuthorize(app, PERMISSIONS.USE_COPILOT, caseId);
+    if (!auth.authorized) {
+      return sendJSON(res, auth.status, {
+        success: false,
+        error: auth.error
+      });
+    }
 
     // ACTION: getConversations
     if (action === 'getConversations') {

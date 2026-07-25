@@ -1,6 +1,7 @@
 'use strict';
 
 const catalyst = require('zcatalyst-sdk-node');
+const { PERMISSIONS, authenticateAndAuthorize } = require('./rawAuth');
 
 module.exports = async (req, res) => {
   try {
@@ -32,6 +33,15 @@ module.exports = async (req, res) => {
     }
 
     const app = catalyst.initialize(req);
+
+    const auth = await authenticateAndAuthorize(app, PERMISSIONS.VIEW_EVIDENCE, caseIdValue);
+    if (!auth.authorized) {
+      return sendJSON(res, auth.status, {
+        success: false,
+        error: auth.error
+      });
+    }
+
     const zcql = app.zcql();
     const rows = await zcql.executeZCQLQuery(
       `SELECT ROWID, CaseMasterID, EvidenceType, OriginalFileName, StorageObjectKey, SHA256Hash, UploadedBy, UploadedAt, ProcessingStatus, MimeType, FileSize, SourceDescription FROM Evidence WHERE CaseMasterID = ${caseIdValue} ORDER BY UploadedAt DESC`
