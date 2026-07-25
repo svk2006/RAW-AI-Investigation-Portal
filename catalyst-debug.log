@@ -1,78 +1,532 @@
-[debug] [2026-07-25T05:51:14.695Z] : 
-[debug] [2026-07-25T05:51:14.699Z] : ----------------------------------------------------------------------
-[debug] [2026-07-25T05:51:14.700Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js serve
-[debug] [2026-07-25T05:51:14.700Z] : CLI Version:  1.27.0
-[debug] [2026-07-25T05:51:14.700Z] : Platform:     win32
-[debug] [2026-07-25T05:51:14.701Z] : Node Version: v24.11.1
-[debug] [2026-07-25T05:51:14.701Z] : Time:         Sat Jul 25 2026 11:21:14 GMT+0530 (India Standard Time)
-[debug] [2026-07-25T05:51:14.701Z] : ----------------------------------------------------------------------
-[debug] [2026-07-25T05:51:14.701Z] : 
-[debug] [2026-07-25T05:51:19.612Z] : > authorizing via signed-in user option
-[debug] [2026-07-25T05:51:19.613Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.apigateway.apis.READ","ZohoCatalyst.apigateway.READ","ZohoCatalyst.segments.ALL","ZohoCatalyst.cache.READ","ZohoCatalyst.cache.CREATE","ZohoCatalyst.cache.DELETE","ZohoCatalyst.projects.ALL","ZohoCatalyst.cron.ALL","ZohoCatalyst.zcql.CREATE","ZohoCatalyst.projects.users.READ","ZohoCatalyst.projects.users.CREATE","ZohoCatalyst.projects.users.DELETE","ZohoCatalyst.projects.users.UPDATE","ZohoCatalyst.authentication.CREATE","ZohoCatalyst.email.CREATE","ZohoCatalyst.tables.ALL","ZohoCatalyst.tables.rows.ALL","ZohoCatalyst.tables.columns.ALL","ZohoCatalyst.tables.bulk.CREATE","ZohoCatalyst.tables.bulk.READ","ZohoCatalyst.folders.ALL","ZohoCatalyst.files.CREATE","ZohoCatalyst.files.READ","ZohoCatalyst.files.DELETE","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.eventlistners.ALL","ZohoCatalyst.eventlisteners.produce","ZohoCatalyst.security.rules.Read","ZohoCatalyst.security.rules.Update","ZohoCatalyst.notifications.mobile","ZohoCatalyst.notifications.web","ZohoCatalyst.search.READ","ZohoCatalyst.mlkit.READ","QuickML.deployment.READ","ZohoCatalyst.pdfshot.execute","ZohoCatalyst.grid.READ","ZohoCatalyst.grid.terminate","ZohoCatalyst.circuits.execution.DELETE","ZohoCatalyst.circuits.execution.READ","ZohoCatalyst.circuits.execute","ZohoCatalyst.appsail.Read","ZohoCatalyst.jobpool.READ","ZohoCatalyst.job.ALL","ZohoCatalyst.nosql.READ","ZohoCatalyst.nosql.rows.ALL"]
-[debug] [2026-07-25T05:51:19.810Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001 
+[debug] [2026-07-25T07:20:19.561Z] : 
+[debug] [2026-07-25T07:20:19.564Z] : ----------------------------------------------------------------------
+[debug] [2026-07-25T07:20:19.564Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js serve
+[debug] [2026-07-25T07:20:19.565Z] : CLI Version:  1.27.0
+[debug] [2026-07-25T07:20:19.565Z] : Platform:     win32
+[debug] [2026-07-25T07:20:19.565Z] : Node Version: v24.11.1
+[debug] [2026-07-25T07:20:19.566Z] : Time:         Sat Jul 25 2026 12:50:19 GMT+0530 (India Standard Time)
+[debug] [2026-07-25T07:20:19.566Z] : ----------------------------------------------------------------------
+[debug] [2026-07-25T07:20:19.566Z] : 
+[debug] [2026-07-25T07:20:24.090Z] : > authorizing via signed-in user option
+[debug] [2026-07-25T07:20:24.091Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.apigateway.apis.READ","ZohoCatalyst.apigateway.READ","ZohoCatalyst.segments.ALL","ZohoCatalyst.cache.READ","ZohoCatalyst.cache.CREATE","ZohoCatalyst.cache.DELETE","ZohoCatalyst.projects.ALL","ZohoCatalyst.cron.ALL","ZohoCatalyst.zcql.CREATE","ZohoCatalyst.projects.users.READ","ZohoCatalyst.projects.users.CREATE","ZohoCatalyst.projects.users.DELETE","ZohoCatalyst.projects.users.UPDATE","ZohoCatalyst.authentication.CREATE","ZohoCatalyst.email.CREATE","ZohoCatalyst.tables.ALL","ZohoCatalyst.tables.rows.ALL","ZohoCatalyst.tables.columns.ALL","ZohoCatalyst.tables.bulk.CREATE","ZohoCatalyst.tables.bulk.READ","ZohoCatalyst.folders.ALL","ZohoCatalyst.files.CREATE","ZohoCatalyst.files.READ","ZohoCatalyst.files.DELETE","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.eventlistners.ALL","ZohoCatalyst.eventlisteners.produce","ZohoCatalyst.security.rules.Read","ZohoCatalyst.security.rules.Update","ZohoCatalyst.notifications.mobile","ZohoCatalyst.notifications.web","ZohoCatalyst.search.READ","ZohoCatalyst.mlkit.READ","QuickML.deployment.READ","ZohoCatalyst.pdfshot.execute","ZohoCatalyst.grid.READ","ZohoCatalyst.grid.terminate","ZohoCatalyst.circuits.execution.DELETE","ZohoCatalyst.circuits.execution.READ","ZohoCatalyst.circuits.execute","ZohoCatalyst.appsail.Read","ZohoCatalyst.jobpool.READ","ZohoCatalyst.job.ALL","ZohoCatalyst.nosql.READ","ZohoCatalyst.nosql.rows.ALL"]
+[debug] [2026-07-25T07:20:24.287Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001 
 
-[debug] [2026-07-25T05:51:31.425Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 05:51:30 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T07:20:24.468Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:20:23 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T05:51:31.449Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/environment 
+[debug] [2026-07-25T07:20:24.475Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/environment 
 
-[debug] [2026-07-25T05:51:31.626Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 05:51:31 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T07:20:24.520Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:20:23 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T05:51:31.963Z] : Build folder already exists, starting cleanup
-[debug] [2026-07-25T05:51:32.373Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/get-details 
+[debug] [2026-07-25T07:20:24.825Z] : Build folder already exists, starting cleanup
+[debug] [2026-07-25T07:20:25.207Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/get-details 
 Query params: {"feature_name":"runtime"}
 
-[debug] [2026-07-25T05:51:32.547Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 05:51:31 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T07:20:25.258Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:20:24 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T05:51:32.558Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/function 
+[debug] [2026-07-25T07:20:25.267Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/function 
 Query params: {"type":"basicio,event,cron,applogic,integration,browser_logic,job"}
 
-[debug] [2026-07-25T05:51:32.650Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 05:51:32 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T07:20:25.326Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:20:24 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T05:51:32.658Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T05:51:32.659Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T05:51:32.659Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T05:51:32.661Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T05:51:32.661Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T05:51:32.693Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
-[debug] [2026-07-25T05:51:57.423Z] : http port : '4000' is not available. Hence port '4001' will be used instead.
-[debug] [2026-07-25T05:51:57.424Z] : http port : '4000' is not available. Hence port '4002' will be used instead.
-[debug] [2026-07-25T05:51:57.424Z] : http port : '4000' is not available. Hence port '4003' will be used instead.
-[info] [2026-07-25T05:52:05.426Z] : [react-plugin]: Starting the development server...
+[debug] [2026-07-25T07:20:25.331Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:20:25.332Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:20:25.333Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:20:25.334Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:20:25.334Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:20:25.360Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[debug] [2026-07-25T07:20:29.003Z] : http port : '4000' is not available. Hence port '4001' will be used instead.
+[debug] [2026-07-25T07:20:29.003Z] : http port : '4000' is not available. Hence port '4002' will be used instead.
+[debug] [2026-07-25T07:20:29.003Z] : http port : '4000' is not available. Hence port '4003' will be used instead.
+[info] [2026-07-25T07:20:36.475Z] : [react-plugin]: Starting the development server...
 
-[info] [2026-07-25T05:52:05.429Z] : 
-[info] [2026-07-25T05:52:05.430Z] : i Client[raw-investigation-platform]: Plugin : "zcatalyst-cli-plugin-react" is used for client serve
-[info] [2026-07-25T05:52:05.430Z] : 
-[debug] [2026-07-25T05:52:09.914Z] : No API Gateway configuration found. Skipping API Gateway rules
-[info] [2026-07-25T05:52:09.919Z] : 
-[info] [2026-07-25T05:52:09.919Z] :  >>>>>>>>>>>>>> Basic I/O <<<<<<<<<<<<< 
-[info] [2026-07-25T05:52:09.920Z] : i raw_investigation_platform_function: http://localhost:3000/server/raw_investigation_platform_function/execute
-[info] [2026-07-25T05:52:09.921Z] : 
-[info] [2026-07-25T05:52:09.921Z] : 
-[info] [2026-07-25T05:52:09.922Z] :  >>>>>>>>>>>>> Advanced I/O <<<<<<<<<<< 
-[info] [2026-07-25T05:52:09.922Z] : i evidence_upload    : http://localhost:3000/server/evidence_upload/
-[info] [2026-07-25T05:52:09.923Z] : i evidence_retrieval : http://localhost:3000/server/evidence_retrieval/
-[info] [2026-07-25T05:52:09.923Z] : i evidence_processing: http://localhost:3000/server/evidence_processing/
-[info] [2026-07-25T05:52:09.924Z] : i raw_copilot        : http://localhost:3000/server/raw_copilot/
-[info] [2026-07-25T05:52:09.924Z] : 
-[info] [2026-07-25T05:52:09.924Z] : 
-[info] [2026-07-25T05:52:09.925Z] :  >>>>>>>>>>>>> Web Client <<<<<<<<<<<<
-[info] [2026-07-25T05:52:09.925Z] : i client[raw-investigation-platform]: http://localhost:3000/app/
-[info] [2026-07-25T05:52:09.926Z] : 
-[info] [2026-07-25T05:52:11.808Z] : [1784958731807]  "GET"  "/app/"
-[info] [2026-07-25T05:52:11.863Z] : [react-plugin]: Compiled successfully!
-[info] [2026-07-25T05:52:11.864Z] : [react-plugin]: 
-[info] [2026-07-25T05:52:11.865Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
-[info] [2026-07-25T05:52:11.865Z] : [react-plugin]: 
-[info] [2026-07-25T05:52:11.866Z] : [react-plugin]:   Local:            http://localhost:3000/app/
-[info] [2026-07-25T05:52:11.866Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
-[info] [2026-07-25T05:52:11.867Z] : [react-plugin]: 
-[info] [2026-07-25T05:52:11.867Z] : [react-plugin]: Note that the development build is not optimized.
-[info] [2026-07-25T05:52:11.867Z] : [react-plugin]: To create a production build, use npm run build.
-[info] [2026-07-25T05:52:11.868Z] : [react-plugin]: 
-[info] [2026-07-25T05:52:12.193Z] : [1784958732192]  "GET"  "/app/static/js/bundle.js"
-[info] [2026-07-25T05:52:12.384Z] : [1784958732384]  "GET"  "/app/manifest.json"
-[info] [2026-07-25T05:52:12.662Z] : [1784958732662]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-25T07:20:36.477Z] : 
+[info] [2026-07-25T07:20:36.478Z] : i Client[raw-investigation-platform]: Plugin : "zcatalyst-cli-plugin-react" is used for client serve
+[info] [2026-07-25T07:20:36.478Z] : 
+[debug] [2026-07-25T07:20:40.211Z] : No API Gateway configuration found. Skipping API Gateway rules
+[info] [2026-07-25T07:20:40.215Z] : 
+[info] [2026-07-25T07:20:40.216Z] :  >>>>>>>>>>>>>> Basic I/O <<<<<<<<<<<<< 
+[info] [2026-07-25T07:20:40.217Z] : i raw_investigation_platform_function: http://localhost:3000/server/raw_investigation_platform_function/execute
+[info] [2026-07-25T07:20:40.217Z] : 
+[info] [2026-07-25T07:20:40.218Z] : 
+[info] [2026-07-25T07:20:40.218Z] :  >>>>>>>>>>>>> Advanced I/O <<<<<<<<<<< 
+[info] [2026-07-25T07:20:40.219Z] : i evidence_upload    : http://localhost:3000/server/evidence_upload/
+[info] [2026-07-25T07:20:40.219Z] : i evidence_retrieval : http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-25T07:20:40.219Z] : i evidence_processing: http://localhost:3000/server/evidence_processing/
+[info] [2026-07-25T07:20:40.220Z] : i raw_copilot        : http://localhost:3000/server/raw_copilot/
+[info] [2026-07-25T07:20:40.220Z] : 
+[info] [2026-07-25T07:20:40.220Z] : 
+[info] [2026-07-25T07:20:40.220Z] :  >>>>>>>>>>>>> Web Client <<<<<<<<<<<<
+[info] [2026-07-25T07:20:40.221Z] : i client[raw-investigation-platform]: http://localhost:3000/app/
+[info] [2026-07-25T07:20:40.221Z] : 
+[info] [2026-07-25T07:20:41.850Z] : [1784964041850]  "GET"  "/app/"
+[info] [2026-07-25T07:20:41.889Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-25T07:20:41.890Z] : [react-plugin]: 
+[info] [2026-07-25T07:20:41.890Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-25T07:20:41.890Z] : [react-plugin]: 
+[info] [2026-07-25T07:20:41.891Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-25T07:20:41.891Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-25T07:20:41.891Z] : [react-plugin]: 
+[info] [2026-07-25T07:20:41.891Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-25T07:20:41.891Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-25T07:20:41.891Z] : [react-plugin]: 
+[info] [2026-07-25T07:20:42.054Z] : [1784964042053]  "GET"  "/app/main.9879e82e82a09d03527a.hot-update.json"
+[info] [2026-07-25T07:20:42.190Z] : [1784964042190]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-25T07:20:42.403Z] : [1784964042402]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T07:20:42.974Z] : [1784964042974]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-25T07:20:42.978Z] : [1784964042978]  "GET"  "/app/favicon.ico"
+[info] [2026-07-25T07:20:42.981Z] : [1784964042981]  "GET"  "/app/logo192.png"
+[info] [2026-07-25T07:20:43.529Z] : [1784964043528]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-25T07:21:28.275Z] : [1784964088274]  "GET"  "/app/favicon.ico"
+[info] [2026-07-25T07:21:28.328Z] : [1784964088322]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:21:28.347Z] : [1784964088344]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:21:28.355Z] : [1784964088352]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:21:28.909Z] : [1784964088907]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:21:30.737Z] : [1784964090736]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:21:31.401Z] : [1784964091401]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:21:32.220Z] : [1784964092219]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:21:32.224Z] : [1784964092223]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:21:34.517Z] : [1784964094517]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:21:57.391Z] : [1784964117390]  "POST"  "/server/raw_copilot/"
+[info] [2026-07-25T07:24:17.462Z] : [1784964257462]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:17.466Z] : [1784964257466]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:24:17.469Z] : [1784964257469]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:17.818Z] : [1784964257818]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:21.737Z] : [1784964261736]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:21.744Z] : [1784964261740]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:21.756Z] : [1784964261755]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:24:22.796Z] : [1784964262795]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:28.719Z] : [1784964268718]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:28.722Z] : [1784964268722]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:28.726Z] : [1784964268726]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:24:30.512Z] : [1784964270512]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:42.416Z] : [1784964282415]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:42.420Z] : [1784964282420]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:42.424Z] : [1784964282424]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:24:42.837Z] : [1784964282836]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:43.145Z] : [1784964283144]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:43.149Z] : [1784964283149]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:24:44.440Z] : [1784964284440]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:24:45.522Z] : [1784964285522]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:46.896Z] : [1784964286895]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:47.482Z] : [1784964287482]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:50.078Z] : [1784964290077]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T07:24:50.678Z] : [1784964290678]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:24:50.829Z] : [1784964290829]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:51.226Z] : [1784964291226]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:52.620Z] : [1784964292620]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:52.624Z] : [1784964292623]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:52.707Z] : [1784964292707]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:53.377Z] : [1784964293377]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:24:54.244Z] : [1784964294243]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:24:55.096Z] : [1784964295095]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:55.130Z] : [1784964295129]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:55.157Z] : [1784964295156]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:55.657Z] : [1784964295657]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:56.408Z] : [1784964296407]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:56.448Z] : [1784964296448]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:57.140Z] : [1784964297139]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:57.251Z] : [1784964297250]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:24:57.308Z] : [1784964297307]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:57.449Z] : [1784964297448]  "GET"  "/.well-known/appspecific/com.chrome.devtools.json"
+[info] [2026-07-25T07:24:58.702Z] : [1784964298702]  "GET"  "/app/static/js/bundle.js.map"
+[info] [2026-07-25T07:24:59.013Z] : [1784964299012]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:59.403Z] : [1784964299403]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:24:59.741Z] : [1784964299741]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:59.744Z] : [1784964299743]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:24:59.774Z] : [1784964299773]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:24:59.846Z] : [1784964299845]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:25:00.239Z] : [1784964300239]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:25:00.287Z] : [1784964300287]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:25:00.405Z] : [1784964300403]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:25:00.743Z] : [1784964300742]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:25:00.761Z] : [1784964300759]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:25:00.873Z] : [1784964300873]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:25:01.344Z] : [1784964301344]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:25:02.044Z] : [1784964302043]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:25:02.103Z] : [1784964302103]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:25:02.105Z] : [1784964302105]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:25:02.757Z] : [1784964302757]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:25:04.433Z] : [1784964304432]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:25:05.094Z] : [1784964305093]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:25:05.179Z] : [1784964305178]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:25:05.645Z] : [1784964305645]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:25:33.319Z] : [1784964333318]  "POST"  "/server/raw_copilot/"
+[info] [2026-07-25T07:26:11.843Z] : [1784964371841]  "POST"  "/server/raw_copilot/"
+[info] [2026-07-25T07:27:26.296Z] : [1784964446295]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:26.299Z] : [1784964446299]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:26.303Z] : [1784964446302]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:27:26.901Z] : [1784964446900]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:27:36.707Z] : [1784964456707]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:36.711Z] : [1784964456710]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:36.714Z] : [1784964456713]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:27:38.139Z] : [1784964458139]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:27:42.441Z] : [1784964462440]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:42.445Z] : [1784964462444]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:42.448Z] : [1784964462447]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:27:44.065Z] : [1784964464065]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:27:45.725Z] : [1784964465724]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:27:46.325Z] : [1784964466324]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:27:46.579Z] : [1784964466579]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:46.582Z] : [1784964466582]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:27:47.151Z] : [1784964467151]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:47.519Z] : [1784964467519]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:49.113Z] : [1784964469112]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:27:52.204Z] : [1784964472204]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:27:52.453Z] : [1784964472452]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:52.793Z] : [1784964472793]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:55.477Z] : [1784964475476]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:27:57.585Z] : [1784964477584]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:27:59.913Z] : [1784964479912]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:31:11.916Z] : [1784964671916]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:13.251Z] : [1784964673251]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:31:16.038Z] : [1784964676014]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:16.611Z] : [1784964676611]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:31:17.212Z] : [1784964677211]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:31:17.496Z] : [1784964677496]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:31:17.847Z] : [1784964677847]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:18.285Z] : [1784964678285]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:18.602Z] : [1784964678601]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:31:19.770Z] : [1784964679769]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:20.210Z] : [1784964680210]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:31:20.653Z] : [1784964680652]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:20.726Z] : [1784964680726]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:21.313Z] : [1784964681313]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:31:21.706Z] : [1784964681706]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:21.932Z] : [1784964681931]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:31:22.255Z] : [1784964682254]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:31:22.898Z] : [1784964682898]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:24.316Z] : [1784964684315]  "GET"  "/server/evidence_processing/?evidenceId=48911000000037007&view=insights"
+[info] [2026-07-25T07:31:24.597Z] : [1784964684596]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000037007"
+[info] [2026-07-25T07:31:24.672Z] : [1784964684672]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005"
+[info] [2026-07-25T07:31:26.762Z] : [1784964686761]  "GET"  "/server/evidence_processing/?evidenceId=48911000000043005&view=insights"
+[info] [2026-07-25T07:31:27.241Z] : [1784964687240]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000043005"
+[info] [2026-07-25T07:31:27.685Z] : [1784964687685]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:31:28.085Z] : [1784964688085]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:28.315Z] : [1784964688314]  "GET"  "/.well-known/appspecific/com.chrome.devtools.json"
+[info] [2026-07-25T07:31:28.881Z] : [1784964688881]  "GET"  "/app/static/js/bundle.js.map"
+[info] [2026-07-25T07:31:29.334Z] : [1784964689333]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:29.553Z] : [1784964689553]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:29.835Z] : [1784964689834]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:29.986Z] : [1784964689986]  "GET"  "/app/main.cbd23d4aeb9d4bbb86a3.hot-update.js.map"
+[info] [2026-07-25T07:31:30.320Z] : [1784964690319]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:30.433Z] : [1784964690433]  "GET"  "/app/main.7c99f40a425023b27d2c.hot-update.js.map"
+[info] [2026-07-25T07:31:30.751Z] : [1784964690751]  "GET"  "/app/main.d56bba47998a3caef53e.hot-update.js.map"
+[info] [2026-07-25T07:31:31.075Z] : [1784964691074]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:31:31.249Z] : [1784964691249]  "GET"  "/.well-known/appspecific/com.chrome.devtools.json"
+[info] [2026-07-25T07:31:31.782Z] : [1784964691781]  "GET"  "/app/static/js/bundle.js.map"
+[info] [2026-07-25T07:31:32.516Z] : [1784964692516]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:33:52.379Z] : [1784964832378]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:33:52.382Z] : [1784964832381]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:33:52.385Z] : [1784964832385]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:33:53.596Z] : [1784964833596]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:33:53.598Z] : [1784964833598]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:33:54.708Z] : [1784964834707]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:33:55.781Z] : [1784964835781]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:33:55.934Z] : [1784964835933]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:33:55.991Z] : [1784964835991]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:33:57.033Z] : [1784964837032]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:33:58.026Z] : [1784964838018]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:33:58.031Z] : [1784964838029]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:33:58.261Z] : [1784964838260]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:33:59.504Z] : [1784964839504]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:33:59.830Z] : [1784964839830]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:34:00.208Z] : [1784964840207]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:34:01.632Z] : [1784964841631]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:34:03.010Z] : [1784964843010]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:34:03.771Z] : [1784964843771]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:34:25.496Z] : [1784964865494]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:34:25.975Z] : [1784964865975]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:34:26.778Z] : [1784964866777]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:34:29.868Z] : [1784964869868]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:34:58.263Z] : [1784964898263]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:34:58.781Z] : [1784964898781]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:34:59.240Z] : [1784964899239]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:35:00.597Z] : [1784964900597]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:35:00.718Z] : [1784964900718]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:35:01.747Z] : [1784964901747]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:35:02.671Z] : [1784964902671]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:35:03.738Z] : [1784964903737]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:35:04.956Z] : [1784964904956]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:36:29.681Z] : [react-plugin]: Compiling...
+[info] [2026-07-25T07:36:38.381Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-25T07:36:38.381Z] : [react-plugin]: 
+[info] [2026-07-25T07:36:38.381Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-25T07:36:38.382Z] : [react-plugin]: 
+[info] [2026-07-25T07:36:38.382Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-25T07:36:38.382Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-25T07:36:38.382Z] : [react-plugin]: 
+[info] [2026-07-25T07:36:38.382Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-25T07:36:38.382Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-25T07:36:38.383Z] : [react-plugin]: 
+[info] [2026-07-25T07:36:38.705Z] : [1784964998705]  "GET"  "/app/main.2d90df7248cd1b63bfe5.hot-update.json"
+[info] [2026-07-25T07:36:39.026Z] : [1784964999025]  "GET"  "/app/main.2d90df7248cd1b63bfe5.hot-update.js"
+[info] [2026-07-25T07:36:40.200Z] : [1784965000200]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:36:40.203Z] : [1784965000202]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:36:40.205Z] : [1784965000205]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:39:49.512Z] : [1784965189511]  "GET"  "/app/case/48911000000025240"
+[info] [2026-07-25T07:39:49.857Z] : [1784965189856]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-25T07:39:49.883Z] : [1784965189883]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T07:39:50.237Z] : [1784965190236]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:39:50.549Z] : [1784965190548]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:39:50.551Z] : [1784965190551]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:39:50.554Z] : [1784965190554]  "GET"  "/app/favicon.ico"
+[info] [2026-07-25T07:39:50.565Z] : [1784965190565]  "GET"  "/app/logo192.png"
+[info] [2026-07-25T07:39:50.713Z] : [1784965190712]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:39:51.109Z] : [1784965191109]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:39:51.408Z] : [1784965191408]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:40:38.563Z] : [1784965238563]  "POST"  "/server/raw_copilot/"
+[info] [2026-07-25T07:41:45.481Z] : [1784965305481]  "POST"  "/server/raw_copilot/"
+[info] [2026-07-25T07:42:21.277Z] : [1784965341276]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:21.581Z] : [1784965341581]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:21.585Z] : [1784965341584]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:42:22.249Z] : [1784965342248]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:42:28.866Z] : [1784965348865]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:28.870Z] : [1784965348870]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:28.874Z] : [1784965348873]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:42:29.325Z] : [1784965349325]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:29.328Z] : [1784965349328]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:42:29.950Z] : [1784965349950]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:30.301Z] : [1784965350301]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:30.304Z] : [1784965350304]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:42:32.617Z] : [1784965352617]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:42:33.306Z] : [1784965353305]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:33.447Z] : [1784965353446]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:33.740Z] : [1784965353739]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:42:34.111Z] : [1784965354110]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:42:35.665Z] : [1784965355664]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T07:42:36.250Z] : [1784965356249]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:36.702Z] : [1784965356702]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:36.865Z] : [1784965356864]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:42:37.389Z] : [1784965357388]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:42:39.249Z] : [1784965359248]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:42:41.911Z] : [1784965361910]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:42:43.048Z] : [1784965363048]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:42:45.212Z] : [1784965365211]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:23.815Z] : [1784965403814]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:24.143Z] : [1784965404142]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:25.044Z] : [1784965405044]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:43:25.377Z] : [1784965405377]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:25.913Z] : [1784965405913]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:26.856Z] : [1784965406855]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:28.080Z] : [1784965408079]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:28.799Z] : [1784965408798]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:29.549Z] : [1784965409548]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:29.553Z] : [1784965409553]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:30.232Z] : [1784965410231]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:30.476Z] : [1784965410476]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:31.276Z] : [1784965411275]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:31.293Z] : [1784965411292]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:31.994Z] : [1784965411994]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:32.068Z] : [1784965412067]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:32.397Z] : [1784965412397]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:43:32.976Z] : [1784965412975]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:33.032Z] : [1784965413031]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:33.433Z] : [1784965413432]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:43:46.822Z] : [1784965426821]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:44:33.349Z] : [1784965473348]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:44:37.597Z] : [1784965477596]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:44:44.783Z] : [1784965484783]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:45:06.702Z] : [1784965506701]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:45:09.335Z] : [1784965509334]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:45:11.659Z] : [1784965511658]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:45:35.547Z] : [1784965535547]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:45:36.950Z] : [1784965536949]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:45:37.526Z] : [1784965537526]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:45:58.393Z] : [1784965558393]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:45:58.852Z] : [1784965558851]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:45:59.280Z] : [1784965559279]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:00.065Z] : [1784965560064]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:00.860Z] : [1784965560860]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:01.472Z] : [1784965561472]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:02.564Z] : [1784965562563]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:03.735Z] : [1784965563735]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:46:21.851Z] : [1784965581851]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:46:22.646Z] : [1784965582646]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:46:23.602Z] : [1784965583602]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:24.104Z] : [1784965584103]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:24.557Z] : [1784965584556]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:31.804Z] : [react-plugin]: Compiling...
+[info] [2026-07-25T07:46:34.490Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-25T07:46:34.490Z] : [react-plugin]: 
+[info] [2026-07-25T07:46:34.491Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-25T07:46:34.491Z] : [react-plugin]: 
+[info] [2026-07-25T07:46:34.491Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-25T07:46:34.491Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-25T07:46:34.491Z] : [react-plugin]: 
+[info] [2026-07-25T07:46:34.491Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-25T07:46:34.491Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-25T07:46:34.492Z] : [react-plugin]: 
+[info] [2026-07-25T07:46:34.802Z] : [1784965594801]  "GET"  "/app/main.6b40db715f364ea8a172.hot-update.json"
+[info] [2026-07-25T07:46:50.151Z] : [1784965610151]  "GET"  "/app/main.6b40db715f364ea8a172.hot-update.js"
+[info] [2026-07-25T07:46:51.199Z] : [1784965611198]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:46:51.725Z] : [1784965611724]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:46:52.113Z] : [1784965612113]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:46:59.504Z] : [react-plugin]: Compiling...
+[info] [2026-07-25T07:47:02.233Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-25T07:47:02.233Z] : [react-plugin]: 
+[info] [2026-07-25T07:47:02.234Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-25T07:47:02.234Z] : [react-plugin]: 
+[info] [2026-07-25T07:47:02.234Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-25T07:47:02.234Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-25T07:47:02.234Z] : [react-plugin]: 
+[info] [2026-07-25T07:47:02.234Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-25T07:47:02.235Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-25T07:47:02.235Z] : [react-plugin]: 
+[info] [2026-07-25T07:47:02.556Z] : [1784965622555]  "GET"  "/app/main.b1194d67b9e9fffb1173.hot-update.json"
+[info] [2026-07-25T07:47:17.900Z] : [1784965637900]  "GET"  "/app/main.b1194d67b9e9fffb1173.hot-update.js"
+[info] [2026-07-25T07:48:19.794Z] : Shutting down server
+[debug] [2026-07-25T07:48:20.029Z] : Error while deleting directory  [Error: EBUSY: resource busy or locked, rmdir 'C:\MyProjects\RAW-AI-Investigation-Portal\.build\functions\evidence_retrieval'] {
+  errno: -4082,
+  code: 'EBUSY',
+  syscall: 'rmdir',
+  path: 'C:\\MyProjects\\RAW-AI-Investigation-Portal\\.build\\functions\\evidence_retrieval'
+}
+[error] [2026-07-25T07:48:20.399Z] : uncaughtException: Cannot write headers after they are sent to the client
+Error [ERR_HTTP_HEADERS_SENT]: Cannot write headers after they are sent to the client
+    at ServerResponse.writeHead (node:_http_server:354:11)
+    at ProxyServer.<anonymous> (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\serve\server\lib\master\utils.js:71:17)
+    at ProxyServer.emit (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\node_modules\eventemitter3\index.js:184:35)
+    at ClientRequest.proxyError (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\node_modules\http-proxy\lib\http-proxy\passes\web-incoming.js:158:18)
+    at ClientRequest.emit (node:events:508:28)
+    at emitErrorEvent (node:_http_client:108:11)
+    at Socket.socketErrorListener (node:_http_client:575:5)
+    at Socket.emit (node:events:508:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+[error] [2026-07-25T07:48:20.406Z] : × An unexpected error has occurred.
+[debug] [2026-07-25T07:48:20.406Z] : Error Stack: CatalystError: An unexpected error has occurred.
+    at exports.default (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\errorOut.js:20:17)
+    at process.<anonymous> (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js:125:28)
+    at process.emit (node:events:520:35)
+    at process.processEmit [as emit] (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\node_modules\signal-exit\index.js:199:34)
+    at process._fatalException (node:internal/process/execution:159:25)
+[debug] [2026-07-25T07:48:20.408Z] : Original Error: Error [ERR_HTTP_HEADERS_SENT]: Cannot write headers after they are sent to the client
+    at ServerResponse.writeHead (node:_http_server:354:11)
+    at ProxyServer.<anonymous> (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\serve\server\lib\master\utils.js:71:17)
+    at ProxyServer.emit (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\node_modules\eventemitter3\index.js:184:35)
+    at ClientRequest.proxyError (C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\node_modules\http-proxy\lib\http-proxy\passes\web-incoming.js:158:18)
+    at ClientRequest.emit (node:events:508:28)
+    at emitErrorEvent (node:_http_client:108:11)
+    at Socket.socketErrorListener (node:_http_client:575:5)
+    at Socket.emit (node:events:508:28)
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  code: 'ERR_HTTP_HEADERS_SENT'
+}
+[debug] [2026-07-25T07:48:20.408Z] : Error Status: 500
+[info] [2026-07-25T07:48:20.409Z] : Kindly contact Catalyst support [support@zohocatalyst.com] if you need any further assistance
+[debug] [2026-07-25T07:48:33.398Z] : 
+[debug] [2026-07-25T07:48:33.401Z] : ----------------------------------------------------------------------
+[debug] [2026-07-25T07:48:33.401Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js serve
+[debug] [2026-07-25T07:48:33.401Z] : CLI Version:  1.27.0
+[debug] [2026-07-25T07:48:33.402Z] : Platform:     win32
+[debug] [2026-07-25T07:48:33.402Z] : Node Version: v24.11.1
+[debug] [2026-07-25T07:48:33.402Z] : Time:         Sat Jul 25 2026 13:18:33 GMT+0530 (India Standard Time)
+[debug] [2026-07-25T07:48:33.402Z] : ----------------------------------------------------------------------
+[debug] [2026-07-25T07:48:33.402Z] : 
+[debug] [2026-07-25T07:48:37.757Z] : > authorizing via signed-in user option
+[debug] [2026-07-25T07:48:37.758Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.apigateway.apis.READ","ZohoCatalyst.apigateway.READ","ZohoCatalyst.segments.ALL","ZohoCatalyst.cache.READ","ZohoCatalyst.cache.CREATE","ZohoCatalyst.cache.DELETE","ZohoCatalyst.projects.ALL","ZohoCatalyst.cron.ALL","ZohoCatalyst.zcql.CREATE","ZohoCatalyst.projects.users.READ","ZohoCatalyst.projects.users.CREATE","ZohoCatalyst.projects.users.DELETE","ZohoCatalyst.projects.users.UPDATE","ZohoCatalyst.authentication.CREATE","ZohoCatalyst.email.CREATE","ZohoCatalyst.tables.ALL","ZohoCatalyst.tables.rows.ALL","ZohoCatalyst.tables.columns.ALL","ZohoCatalyst.tables.bulk.CREATE","ZohoCatalyst.tables.bulk.READ","ZohoCatalyst.folders.ALL","ZohoCatalyst.files.CREATE","ZohoCatalyst.files.READ","ZohoCatalyst.files.DELETE","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.eventlistners.ALL","ZohoCatalyst.eventlisteners.produce","ZohoCatalyst.security.rules.Read","ZohoCatalyst.security.rules.Update","ZohoCatalyst.notifications.mobile","ZohoCatalyst.notifications.web","ZohoCatalyst.search.READ","ZohoCatalyst.mlkit.READ","QuickML.deployment.READ","ZohoCatalyst.pdfshot.execute","ZohoCatalyst.grid.READ","ZohoCatalyst.grid.terminate","ZohoCatalyst.circuits.execution.DELETE","ZohoCatalyst.circuits.execution.READ","ZohoCatalyst.circuits.execute","ZohoCatalyst.appsail.Read","ZohoCatalyst.jobpool.READ","ZohoCatalyst.job.ALL","ZohoCatalyst.nosql.READ","ZohoCatalyst.nosql.rows.ALL"]
+[debug] [2026-07-25T07:48:37.946Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001 
+
+[debug] [2026-07-25T07:48:49.347Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:48:48 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-07-25T07:48:49.355Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/environment 
+
+[debug] [2026-07-25T07:48:49.696Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:48:49 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-07-25T07:48:50.005Z] : Build folder already exists, starting cleanup
+[debug] [2026-07-25T07:48:50.416Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/get-details 
+Query params: {"feature_name":"runtime"}
+
+[debug] [2026-07-25T07:48:50.472Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:48:49 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-07-25T07:48:50.483Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/function 
+Query params: {"type":"basicio,event,cron,applogic,integration,browser_logic,job"}
+
+[debug] [2026-07-25T07:48:50.529Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 07:48:49 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+
+[debug] [2026-07-25T07:48:50.537Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:48:50.538Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:48:50.539Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:48:50.541Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:48:50.542Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T07:48:50.569Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[debug] [2026-07-25T07:48:55.083Z] : http port : '4000' is not available. Hence port '4001' will be used instead.
+[debug] [2026-07-25T07:48:55.083Z] : http port : '4000' is not available. Hence port '4002' will be used instead.
+[debug] [2026-07-25T07:48:55.083Z] : http port : '4000' is not available. Hence port '4003' will be used instead.
+[info] [2026-07-25T07:49:03.869Z] : [react-plugin]: Starting the development server...
+
+[info] [2026-07-25T07:49:03.873Z] : 
+[info] [2026-07-25T07:49:03.874Z] : i Client[raw-investigation-platform]: Plugin : "zcatalyst-cli-plugin-react" is used for client serve
+[info] [2026-07-25T07:49:03.875Z] : 
+[debug] [2026-07-25T07:49:07.673Z] : No API Gateway configuration found. Skipping API Gateway rules
+[info] [2026-07-25T07:49:07.678Z] : 
+[info] [2026-07-25T07:49:07.678Z] :  >>>>>>>>>>>>>> Basic I/O <<<<<<<<<<<<< 
+[info] [2026-07-25T07:49:07.679Z] : i raw_investigation_platform_function: http://localhost:3000/server/raw_investigation_platform_function/execute
+[info] [2026-07-25T07:49:07.680Z] : 
+[info] [2026-07-25T07:49:07.680Z] : 
+[info] [2026-07-25T07:49:07.680Z] :  >>>>>>>>>>>>> Advanced I/O <<<<<<<<<<< 
+[info] [2026-07-25T07:49:07.681Z] : i evidence_upload    : http://localhost:3000/server/evidence_upload/
+[info] [2026-07-25T07:49:07.681Z] : i evidence_retrieval : http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-25T07:49:07.682Z] : i evidence_processing: http://localhost:3000/server/evidence_processing/
+[info] [2026-07-25T07:49:07.682Z] : i raw_copilot        : http://localhost:3000/server/raw_copilot/
+[info] [2026-07-25T07:49:07.682Z] : 
+[info] [2026-07-25T07:49:07.682Z] : 
+[info] [2026-07-25T07:49:07.683Z] :  >>>>>>>>>>>>> Web Client <<<<<<<<<<<<
+[info] [2026-07-25T07:49:07.683Z] : i client[raw-investigation-platform]: http://localhost:3000/app/
+[info] [2026-07-25T07:49:07.683Z] : 
+[info] [2026-07-25T07:49:09.430Z] : [1784965749429]  "GET"  "/app/"
+[info] [2026-07-25T07:49:09.476Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-25T07:49:09.477Z] : [react-plugin]: 
+[info] [2026-07-25T07:49:09.477Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-25T07:49:09.477Z] : [react-plugin]: 
+[info] [2026-07-25T07:49:09.478Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-25T07:49:09.478Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-25T07:49:09.478Z] : [react-plugin]: 
+[info] [2026-07-25T07:49:09.478Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-25T07:49:09.478Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-25T07:49:09.478Z] : [react-plugin]: 
+[info] [2026-07-25T07:49:09.667Z] : [1784965749666]  "GET"  "/app/main.a1e6917975f708dbf881.hot-update.json"
+[info] [2026-07-25T07:49:09.810Z] : [1784965749809]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-25T07:49:10.024Z] : [1784965750023]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T07:49:10.836Z] : [1784965750836]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-25T07:49:10.842Z] : [1784965750841]  "GET"  "/app/favicon.ico"
+[info] [2026-07-25T07:49:10.845Z] : [1784965750845]  "GET"  "/app/logo192.png"
+[info] [2026-07-25T07:49:13.997Z] : [1784965753996]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-25T07:49:16.902Z] : [1784965756902]  "GET"  "/app/favicon.ico"
+[info] [2026-07-25T07:49:16.946Z] : [1784965756945]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:49:16.953Z] : [1784965756953]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:49:16.962Z] : [1784965756962]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:49:18.034Z] : [1784965758034]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:49:18.601Z] : [1784965758600]  "GET"  "/server/evidence_retrieval/?caseId=48911000000025240"
+[info] [2026-07-25T07:49:20.576Z] : [1784965760576]  "GET"  "/server/evidence_processing/?caseId=48911000000025240"
+[info] [2026-07-25T07:49:43.984Z] : [1784965783981]  "POST"  "/server/raw_copilot/"
+[info] [2026-07-25T07:51:08.626Z] : [1784965868625]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:51:08.629Z] : [1784965868629]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:51:08.915Z] : [1784965868914]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
+[info] [2026-07-25T07:51:16.145Z] : [1784965876145]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:51:21.280Z] : [1784965881279]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:51:29.380Z] : [1784965889379]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:51:35.011Z] : [1784965895010]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T07:51:35.079Z] : [1784965895079]  "GET"  "/.well-known/appspecific/com.chrome.devtools.json"
+[info] [2026-07-25T07:51:35.399Z] : [1784965895398]  "GET"  "/app/static/js/bundle.js.map"
+[info] [2026-07-25T07:51:44.478Z] : [1784965904477]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:51:46.492Z] : [1784965906491]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:51:47.134Z] : [1784965907132]  "GET"  "/server/evidence_processing/?action=download&evidenceId=48911000000047005"
+[info] [2026-07-25T07:52:08.586Z] : [1784965928585]  "GET"  "/server/evidence_processing/?action=download&evidenceId=48911000000047005"
+[info] [2026-07-25T07:52:27.769Z] : [1784965947769]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:52:28.337Z] : [1784965948336]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:52:51.178Z] : [1784965971178]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005"
+[info] [2026-07-25T07:52:51.181Z] : [1784965971181]  "GET"  "/server/evidence_processing/?evidenceId=48911000000047005&view=insights"
+[info] [2026-07-25T07:52:53.879Z] : [1784965973878]  "GET"  "/server/evidence_processing/?action=preview&evidenceId=48911000000047005"
+[info] [2026-07-25T07:52:54.320Z] : [1784965974319]  "GET"  "/server/evidence_processing/?caseId=48911000000025240&view=graph"
