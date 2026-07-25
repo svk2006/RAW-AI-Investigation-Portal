@@ -1,84 +1,80 @@
-[debug] [2026-07-25T10:34:38.678Z] : 
-[debug] [2026-07-25T10:34:38.681Z] : ----------------------------------------------------------------------
-[debug] [2026-07-25T10:34:38.681Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js serve
-[debug] [2026-07-25T10:34:38.681Z] : CLI Version:  1.27.0
-[debug] [2026-07-25T10:34:38.682Z] : Platform:     win32
-[debug] [2026-07-25T10:34:38.682Z] : Node Version: v24.11.1
-[debug] [2026-07-25T10:34:38.682Z] : Time:         Sat Jul 25 2026 16:04:38 GMT+0530 (India Standard Time)
-[debug] [2026-07-25T10:34:38.682Z] : ----------------------------------------------------------------------
-[debug] [2026-07-25T10:34:38.682Z] : 
-[debug] [2026-07-25T10:34:44.940Z] : > authorizing via signed-in user option
-[debug] [2026-07-25T10:34:44.941Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.apigateway.apis.READ","ZohoCatalyst.apigateway.READ","ZohoCatalyst.segments.ALL","ZohoCatalyst.cache.READ","ZohoCatalyst.cache.CREATE","ZohoCatalyst.cache.DELETE","ZohoCatalyst.projects.ALL","ZohoCatalyst.cron.ALL","ZohoCatalyst.zcql.CREATE","ZohoCatalyst.projects.users.READ","ZohoCatalyst.projects.users.CREATE","ZohoCatalyst.projects.users.DELETE","ZohoCatalyst.projects.users.UPDATE","ZohoCatalyst.authentication.CREATE","ZohoCatalyst.email.CREATE","ZohoCatalyst.tables.ALL","ZohoCatalyst.tables.rows.ALL","ZohoCatalyst.tables.columns.ALL","ZohoCatalyst.tables.bulk.CREATE","ZohoCatalyst.tables.bulk.READ","ZohoCatalyst.folders.ALL","ZohoCatalyst.files.CREATE","ZohoCatalyst.files.READ","ZohoCatalyst.files.DELETE","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.eventlistners.ALL","ZohoCatalyst.eventlisteners.produce","ZohoCatalyst.security.rules.Read","ZohoCatalyst.security.rules.Update","ZohoCatalyst.notifications.mobile","ZohoCatalyst.notifications.web","ZohoCatalyst.search.READ","ZohoCatalyst.mlkit.READ","QuickML.deployment.READ","ZohoCatalyst.pdfshot.execute","ZohoCatalyst.grid.READ","ZohoCatalyst.grid.terminate","ZohoCatalyst.circuits.execution.DELETE","ZohoCatalyst.circuits.execution.READ","ZohoCatalyst.circuits.execute","ZohoCatalyst.appsail.Read","ZohoCatalyst.jobpool.READ","ZohoCatalyst.job.ALL","ZohoCatalyst.nosql.READ","ZohoCatalyst.nosql.rows.ALL"]
-[debug] [2026-07-25T10:34:45.146Z] : > refreshing access token <
-[debug] [2026-07-25T10:34:45.151Z] : >>>> HTTP REQUEST : POST https://accounts.zoho.in/oauth/v2/token 
-<request body omitted>
+[debug] [2026-07-25T12:23:19.010Z] : 
+[debug] [2026-07-25T12:23:19.012Z] : ----------------------------------------------------------------------
+[debug] [2026-07-25T12:23:19.013Z] : Command:      C:\Program Files\nodejs\node.exe C:\Users\venka\AppData\Roaming\npm\node_modules\zcatalyst-cli\lib\bin\catalyst.js serve
+[debug] [2026-07-25T12:23:19.013Z] : CLI Version:  1.27.0
+[debug] [2026-07-25T12:23:19.014Z] : Platform:     win32
+[debug] [2026-07-25T12:23:19.014Z] : Node Version: v24.11.1
+[debug] [2026-07-25T12:23:19.015Z] : Time:         Sat Jul 25 2026 17:53:19 GMT+0530 (India Standard Time)
+[debug] [2026-07-25T12:23:19.015Z] : ----------------------------------------------------------------------
+[debug] [2026-07-25T12:23:19.015Z] : 
+[debug] [2026-07-25T12:23:23.414Z] : > authorizing via signed-in user option
+[debug] [2026-07-25T12:23:23.416Z] : > command requires scopes: ["ZohoCatalyst.projects.ALL","ZohoCatalyst.apigateway.apis.READ","ZohoCatalyst.apigateway.READ","ZohoCatalyst.segments.ALL","ZohoCatalyst.cache.READ","ZohoCatalyst.cache.CREATE","ZohoCatalyst.cache.DELETE","ZohoCatalyst.projects.ALL","ZohoCatalyst.cron.ALL","ZohoCatalyst.zcql.CREATE","ZohoCatalyst.projects.users.READ","ZohoCatalyst.projects.users.CREATE","ZohoCatalyst.projects.users.DELETE","ZohoCatalyst.projects.users.UPDATE","ZohoCatalyst.authentication.CREATE","ZohoCatalyst.email.CREATE","ZohoCatalyst.tables.ALL","ZohoCatalyst.tables.rows.ALL","ZohoCatalyst.tables.columns.ALL","ZohoCatalyst.tables.bulk.CREATE","ZohoCatalyst.tables.bulk.READ","ZohoCatalyst.folders.ALL","ZohoCatalyst.files.CREATE","ZohoCatalyst.files.READ","ZohoCatalyst.files.DELETE","ZohoCatalyst.functions.ALL","ZohoCatalyst.functions.EXECUTE","ZohoCatalyst.eventlistners.ALL","ZohoCatalyst.eventlisteners.produce","ZohoCatalyst.security.rules.Read","ZohoCatalyst.security.rules.Update","ZohoCatalyst.notifications.mobile","ZohoCatalyst.notifications.web","ZohoCatalyst.search.READ","ZohoCatalyst.mlkit.READ","QuickML.deployment.READ","ZohoCatalyst.pdfshot.execute","ZohoCatalyst.grid.READ","ZohoCatalyst.grid.terminate","ZohoCatalyst.circuits.execution.DELETE","ZohoCatalyst.circuits.execution.READ","ZohoCatalyst.circuits.execute","ZohoCatalyst.appsail.Read","ZohoCatalyst.jobpool.READ","ZohoCatalyst.job.ALL","ZohoCatalyst.nosql.READ","ZohoCatalyst.nosql.rows.ALL"]
+[debug] [2026-07-25T12:23:23.613Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001 
 
-[debug] [2026-07-25T10:34:45.403Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 10:34:44 GMT","content-type":"application/json;charset=UTF-8","content-length":"2523","connection":"keep-alive","cache-control":"no-store","x-content-type-options":"nosniff","pragma":"no-cache","x-frame-options":"SAMEORIGIN","vary":"accept-encoding","content-language":"en-US","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T12:23:23.778Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 12:23:22 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T10:34:45.514Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001 
+[debug] [2026-07-25T12:23:23.784Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/environment 
 
-[debug] [2026-07-25T10:34:45.678Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 10:34:44 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T12:23:23.832Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 12:23:22 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T10:34:45.684Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/environment 
-
-[debug] [2026-07-25T10:34:45.817Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 10:34:44 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
-
-[debug] [2026-07-25T10:34:46.283Z] : Build folder already exists, starting cleanup
-[debug] [2026-07-25T10:34:46.791Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/get-details 
+[debug] [2026-07-25T12:23:24.121Z] : Build folder already exists, starting cleanup
+[debug] [2026-07-25T12:23:24.672Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/get-details 
 Query params: {"feature_name":"runtime"}
 
-[debug] [2026-07-25T10:34:46.837Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 10:34:45 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T12:23:24.717Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 12:23:23 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T10:34:46.849Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/function 
+[debug] [2026-07-25T12:23:24.726Z] : >>>> HTTP REQUEST : GET https://api.catalyst.zoho.in/baas/v1/project/48911000000019001/function 
 Query params: {"type":"basicio,event,cron,applogic,integration,browser_logic,job"}
 
-[debug] [2026-07-25T10:34:46.949Z] : <<<< HTTP RESPONSE : 200
-Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 10:34:46 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
+[debug] [2026-07-25T12:23:24.780Z] : <<<< HTTP RESPONSE : 200
+Response Headers: {"server":"ZGS","date":"Sat, 25 Jul 2026 12:23:23 GMT","content-type":"application/vnd.catalyst.v2+json","transfer-encoding":"chunked","connection":"keep-alive","x-content-type-options":"nosniff","cache-control":"private,no-cache,no-store,max-age=0,must-revalidate","pragma":"no-cache","expires":"Thu, 01 Jan 1970 00:00:00 GMT","x-frame-options":"DENY","strict-transport-security":"max-age=64072000; includeSubDomains; preload"}
 
-[debug] [2026-07-25T10:34:46.954Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T10:34:46.955Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T10:34:46.955Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T10:34:46.956Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T10:34:46.957Z] : unknown eol undefined hence skipping check
-[debug] [2026-07-25T10:34:46.991Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
-[debug] [2026-07-25T10:34:52.171Z] : http port : '4000' is not available. Hence port '4001' will be used instead.
-[debug] [2026-07-25T10:34:52.171Z] : http port : '4000' is not available. Hence port '4002' will be used instead.
-[debug] [2026-07-25T10:34:52.171Z] : http port : '4000' is not available. Hence port '4003' will be used instead.
-[info] [2026-07-25T10:35:00.346Z] : [react-plugin]: Starting the development server...
+[debug] [2026-07-25T12:23:24.786Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T12:23:24.787Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T12:23:24.788Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T12:23:24.789Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T12:23:24.790Z] : unknown eol undefined hence skipping check
+[debug] [2026-07-25T12:23:24.823Z] : Node binary for stack node24 is at C:\Program Files\nodejs\node.exe
+[debug] [2026-07-25T12:23:28.462Z] : http port : '4000' is not available. Hence port '4001' will be used instead.
+[debug] [2026-07-25T12:23:28.463Z] : http port : '4000' is not available. Hence port '4002' will be used instead.
+[debug] [2026-07-25T12:23:28.463Z] : http port : '4000' is not available. Hence port '4003' will be used instead.
+[info] [2026-07-25T12:23:35.554Z] : [react-plugin]: Starting the development server...
 
-[info] [2026-07-25T10:35:00.350Z] : 
-[info] [2026-07-25T10:35:00.351Z] : i Client[raw-investigation-platform]: Plugin : "zcatalyst-cli-plugin-react" is used for client serve
-[info] [2026-07-25T10:35:00.351Z] : 
-[debug] [2026-07-25T10:35:04.633Z] : No API Gateway configuration found. Skipping API Gateway rules
-[info] [2026-07-25T10:35:04.638Z] : 
-[info] [2026-07-25T10:35:04.638Z] :  >>>>>>>>>>>>>> Basic I/O <<<<<<<<<<<<< 
-[info] [2026-07-25T10:35:04.640Z] : i raw_investigation_platform_function: http://localhost:3000/server/raw_investigation_platform_function/execute
-[info] [2026-07-25T10:35:04.640Z] : 
-[info] [2026-07-25T10:35:04.641Z] : 
-[info] [2026-07-25T10:35:04.641Z] :  >>>>>>>>>>>>> Advanced I/O <<<<<<<<<<< 
-[info] [2026-07-25T10:35:04.642Z] : i evidence_upload    : http://localhost:3000/server/evidence_upload/
-[info] [2026-07-25T10:35:04.642Z] : i evidence_retrieval : http://localhost:3000/server/evidence_retrieval/
-[info] [2026-07-25T10:35:04.642Z] : i evidence_processing: http://localhost:3000/server/evidence_processing/
-[info] [2026-07-25T10:35:04.643Z] : i raw_copilot        : http://localhost:3000/server/raw_copilot/
-[info] [2026-07-25T10:35:04.643Z] : 
-[info] [2026-07-25T10:35:04.644Z] : 
-[info] [2026-07-25T10:35:04.644Z] :  >>>>>>>>>>>>> Web Client <<<<<<<<<<<<
-[info] [2026-07-25T10:35:04.645Z] : i client[raw-investigation-platform]: http://localhost:3000/app/
-[info] [2026-07-25T10:35:04.645Z] : 
-[info] [2026-07-25T10:35:06.189Z] : [1784975706188]  "GET"  "/app/"
-[info] [2026-07-25T10:35:15.597Z] : [react-plugin]: Compiled successfully!
-[info] [2026-07-25T10:35:15.600Z] : [react-plugin]: 
-[info] [2026-07-25T10:35:15.600Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
-[info] [2026-07-25T10:35:15.601Z] : [react-plugin]: 
-[info] [2026-07-25T10:35:15.601Z] : [react-plugin]:   Local:            http://localhost:3000/app/
-[info] [2026-07-25T10:35:15.601Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
-[info] [2026-07-25T10:35:15.601Z] : [react-plugin]: 
-[info] [2026-07-25T10:35:15.602Z] : [react-plugin]: Note that the development build is not optimized.
-[info] [2026-07-25T10:35:15.602Z] : [react-plugin]: To create a production build, use npm run build.
-[info] [2026-07-25T10:35:15.602Z] : [react-plugin]: 
-[info] [2026-07-25T10:35:15.947Z] : [1784975715946]  "GET"  "/app/static/js/bundle.js"
-[info] [2026-07-25T10:35:16.160Z] : [1784975716159]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T12:23:35.557Z] : 
+[info] [2026-07-25T12:23:35.558Z] : i Client[raw-investigation-platform]: Plugin : "zcatalyst-cli-plugin-react" is used for client serve
+[info] [2026-07-25T12:23:35.558Z] : 
+[debug] [2026-07-25T12:23:39.766Z] : No API Gateway configuration found. Skipping API Gateway rules
+[info] [2026-07-25T12:23:39.772Z] : 
+[info] [2026-07-25T12:23:39.772Z] :  >>>>>>>>>>>>>> Basic I/O <<<<<<<<<<<<< 
+[info] [2026-07-25T12:23:39.773Z] : i raw_investigation_platform_function: http://localhost:3000/server/raw_investigation_platform_function/execute
+[info] [2026-07-25T12:23:39.774Z] : 
+[info] [2026-07-25T12:23:39.774Z] : 
+[info] [2026-07-25T12:23:39.775Z] :  >>>>>>>>>>>>> Advanced I/O <<<<<<<<<<< 
+[info] [2026-07-25T12:23:39.775Z] : i evidence_upload    : http://localhost:3000/server/evidence_upload/
+[info] [2026-07-25T12:23:39.776Z] : i evidence_retrieval : http://localhost:3000/server/evidence_retrieval/
+[info] [2026-07-25T12:23:39.776Z] : i evidence_processing: http://localhost:3000/server/evidence_processing/
+[info] [2026-07-25T12:23:39.777Z] : i raw_copilot        : http://localhost:3000/server/raw_copilot/
+[info] [2026-07-25T12:23:39.777Z] : 
+[info] [2026-07-25T12:23:39.778Z] : 
+[info] [2026-07-25T12:23:39.778Z] :  >>>>>>>>>>>>> Web Client <<<<<<<<<<<<
+[info] [2026-07-25T12:23:39.779Z] : i client[raw-investigation-platform]: http://localhost:3000/app/
+[info] [2026-07-25T12:23:39.779Z] : 
+[info] [2026-07-25T12:23:41.155Z] : [1784982221154]  "GET"  "/app/"
+[info] [2026-07-25T12:23:41.398Z] : [react-plugin]: Compiled successfully!
+[info] [2026-07-25T12:23:41.398Z] : [react-plugin]: 
+[info] [2026-07-25T12:23:41.398Z] : [react-plugin]: You can now view raw-investigation-platform in the browser.
+[info] [2026-07-25T12:23:41.398Z] : [react-plugin]: 
+[info] [2026-07-25T12:23:41.399Z] : [react-plugin]:   Local:            http://localhost:3000/app/
+[info] [2026-07-25T12:23:41.399Z] : [react-plugin]:   On Your Network:  http://172.16.64.56:3000/app/
+[info] [2026-07-25T12:23:41.399Z] : [react-plugin]: 
+[info] [2026-07-25T12:23:41.399Z] : [react-plugin]: Note that the development build is not optimized.
+[info] [2026-07-25T12:23:41.399Z] : [react-plugin]: To create a production build, use npm run build.
+[info] [2026-07-25T12:23:41.399Z] : [react-plugin]: 
+[info] [2026-07-25T12:23:41.684Z] : [1784982221683]  "GET"  "/app/static/js/bundle.js"
+[info] [2026-07-25T12:23:41.911Z] : [1784982221911]  "GET"  "/app/manifest.json"
+[info] [2026-07-25T12:23:42.053Z] : [1784982222053]  "GET"  "/server/raw_investigation_platform_function/execute"
+[info] [2026-07-25T12:23:42.365Z] : [1784982222365]  "GET"  "/app/favicon.ico"
+[info] [2026-07-25T12:23:42.368Z] : [1784982222367]  "GET"  "/app/logo192.png"

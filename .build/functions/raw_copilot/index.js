@@ -9,6 +9,17 @@ const MAX_HISTORY_MESSAGES = 6;
 const MAX_TEXT_PER_FILE = 3000;
 const MAX_TOTAL_TEXT = 12000;
 
+function getCatalystDatetime(date = new Date()) {
+  const pad = (num) => String(num).padStart(2, '0');
+  const year = date.getFullYear();
+  const month = pad(date.getMonth() + 1);
+  const day = pad(date.getDate());
+  const hours = pad(date.getHours());
+  const minutes = pad(date.getMinutes());
+  const seconds = pad(date.getSeconds());
+  return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
 module.exports = async (req, res) => {
   try {
     if (req.method !== 'POST') {
@@ -22,11 +33,7 @@ module.exports = async (req, res) => {
     const parsedBody = parseJSONSafely(requestBody);
 
     const caseId = String(parsedBody.caseId || '').trim();
-    const question = String(parsedBody.question || '').trim();
-    const rawHistory = Array.isArray(parsedBody.history) ? parsedBody.history : [];
-
-    const rawLanguage = String(parsedBody.language || 'en').toLowerCase().trim();
-    const language = (rawLanguage === 'kn' || rawLanguage === 'kannada') ? 'kn' : 'en';
+    const action = String(parsedBody.action || 'askQuestion').trim();
 
     if (!caseId || !/^[0-9]+$/.test(caseId)) {
       return sendJSON(res, 400, {
@@ -34,6 +41,102 @@ module.exports = async (req, res) => {
         error: 'caseId must be a numeric ROWID'
       });
     }
+
+    const app = catalyst.initialize(req);
+    const datastore = app.datastore();
+    const zcql = app.zcql();
+
+    // ACTION: getConversations
+    if (action === 'getConversations') {
+      try {
+        const zql = `SELECT ROWID, CaseMasterID, Title, Language, CreatedAt, UpdatedAt, Status FROM CopilotConversation WHERE CaseMasterID = '${caseId}' AND Status = 'ACTIVE' ORDER BY UpdatedAt DESC`;
+        const zqlRes = await zcql.executeZCQLQuery(zql);
+        const conversations = (zqlRes || []).map((r) => {
+          const item = r.CopilotConversation || r;
+          return {
+            id: String(item.ROWID),
+            caseMasterId: String(item.CaseMasterID),
+            title: String(item.Title || ''),
+            language: String(item.Language || 'en'),
+            createdAt: String(item.CreatedAt || ''),
+            updatedAt: String(item.UpdatedAt || ''),
+            status: String(item.Status || 'ACTIVE')
+          };
+        });
+
+        return sendJSON(res, 200, {
+          success: true,
+          caseId,
+          conversations
+        });
+      } catch (convErr) {
+        console.warn('[RAW Copilot] getConversations ZQL error:', convErr.message);
+        return sendJSON(res, 200, {
+          success: true,
+          caseId,
+          conversations: []
+        });
+      }
+    }
+
+    // ACTION: getMessages
+    if (action === 'getMessages') {
+      const conversationId = String(parsedBody.conversationId || '').trim();
+      if (!conversationId || !/^[0-9]+$/.test(conversationId)) {
+        return sendJSON(res, 400, {
+          success: false,
+          error: 'conversationId must be a numeric ROWID'
+        });
+      }
+
+      try {
+        const zql = `SELECT ROWID, ConversationID, CaseMasterID, Role, Content, Language, CreatedAt, SourcesJSON FROM CopilotMessage WHERE ConversationID = '${conversationId}' AND CaseMasterID = '${caseId}' ORDER BY CreatedAt ASC`;
+        const zqlRes = await zcql.executeZCQLQuery(zql);
+        const messages = (zqlRes || []).map((r) => {
+          const item = r.CopilotMessage || r;
+          let sources = [];
+          if (item.SourcesJSON) {
+            try {
+              sources = JSON.parse(item.SourcesJSON);
+            } catch (e) {
+              console.warn('[RAW Copilot] SourcesJSON parse error:', e.message);
+            }
+          }
+          return {
+            id: String(item.ROWID),
+            conversationId: String(item.ConversationID),
+            role: String(item.Role || 'USER').toLowerCase(),
+            content: String(item.Content || ''),
+            language: String(item.Language || 'en'),
+            createdAt: String(item.CreatedAt || ''),
+            sources: Array.isArray(sources) ? sources : []
+          };
+        });
+
+        return sendJSON(res, 200, {
+          success: true,
+          caseId,
+          conversationId,
+          messages
+        });
+      } catch (msgErr) {
+        console.warn('[RAW Copilot] getMessages ZQL error:', msgErr.message);
+        return sendJSON(res, 200, {
+          success: true,
+          caseId,
+          conversationId,
+          messages: []
+        });
+      }
+    }
+
+    // ACTION: askQuestion
+    const question = String(parsedBody.question || '').trim();
+    const rawHistory = Array.isArray(parsedBody.history) ? parsedBody.history : [];
+    let conversationId = String(parsedBody.conversationId || '').trim();
+
+    const rawLanguage = String(parsedBody.language || 'en').toLowerCase().trim();
+    const language = (rawLanguage === 'kn' || rawLanguage === 'kannada') ? 'kn' : 'en';
 
     if (!question) {
       return sendJSON(res, 400, {
@@ -49,9 +152,6 @@ module.exports = async (req, res) => {
       });
     }
 
-    const app = catalyst.initialize(req);
-    const datastore = app.datastore();
-
     // 1. Build trusted server-side case context from persisted Data Store records
     const context = await buildTrustedCopilotContext(datastore, app, caseId);
 
@@ -62,7 +162,59 @@ module.exports = async (req, res) => {
       });
     }
 
-    // 2. Sanitize recent conversation history window
+    // 2. Ensure active conversation exists or create a new one
+    let conversationTitle = '';
+    const nowStamp = getCatalystDatetime();
+
+    if (conversationId && /^[0-9]+$/.test(conversationId)) {
+      try {
+        const convRow = await datastore.table('CopilotConversation').getRow(conversationId);
+        if (convRow && String(convRow.CaseMasterID) === String(caseId)) {
+          conversationTitle = String(convRow.Title || '');
+        } else {
+          conversationId = '';
+        }
+      } catch (e) {
+        console.warn('[RAW Copilot] Existing conversation lookup warning:', e.message);
+        conversationId = '';
+      }
+    }
+
+    if (!conversationId) {
+      try {
+        conversationTitle = question.slice(0, 80);
+        const newConvRow = await datastore.table('CopilotConversation').insertRow({
+          CaseMasterID: String(caseId),
+          Title: conversationTitle,
+          Language: language,
+          CreatedAt: nowStamp,
+          UpdatedAt: nowStamp,
+          Status: 'ACTIVE'
+        });
+        conversationId = String(newConvRow.ROWID);
+      } catch (cErr) {
+        console.error('[RAW Copilot] CopilotConversation insert error:', cErr);
+      }
+    }
+
+    // 3. Persist USER message BEFORE Gemini request
+    if (conversationId) {
+      try {
+        await datastore.table('CopilotMessage').insertRow({
+          ConversationID: String(conversationId),
+          CaseMasterID: String(caseId),
+          Role: 'USER',
+          Content: question,
+          Language: language,
+          CreatedAt: nowStamp,
+          SourcesJSON: null
+        });
+      } catch (uErr) {
+        console.error('[RAW Copilot] CopilotMessage USER insert error:', uErr);
+      }
+    }
+
+    // 4. Sanitize recent conversation history window for Gemini
     const boundedHistory = rawHistory
       .slice(-MAX_HISTORY_MESSAGES)
       .map((item) => ({
@@ -70,12 +222,49 @@ module.exports = async (req, res) => {
         content: String(item.content || '').slice(0, 1000)
       }));
 
-    // 3. Call Gemini provider with strict case grounding and governance rules
+    // 5. Call Gemini provider with strict case grounding and governance rules
     const copilotResult = await runCopilotAnalysis(context, question, boundedHistory, language);
+
+    // 6. Persist ASSISTANT message AFTER successful Gemini response
+    if (conversationId && copilotResult && copilotResult.answer) {
+      const assistantStamp = getCatalystDatetime();
+      const safeSources = Array.isArray(copilotResult.sources)
+        ? copilotResult.sources.map((s) => ({
+            type: String(s.type || 'EVIDENCE').toUpperCase(),
+            reference: String(s.reference || '')
+          }))
+        : [];
+
+      try {
+        await datastore.table('CopilotMessage').insertRow({
+          ConversationID: String(conversationId),
+          CaseMasterID: String(caseId),
+          Role: 'ASSISTANT',
+          Content: String(copilotResult.answer),
+          Language: language,
+          CreatedAt: assistantStamp,
+          SourcesJSON: JSON.stringify(safeSources)
+        });
+
+        // Update conversation UpdatedAt timestamp
+        await datastore.table('CopilotConversation').updateRow({
+          ROWID: String(conversationId),
+          CaseMasterID: String(caseId),
+          Title: conversationTitle || question.slice(0, 80),
+          Language: language,
+          UpdatedAt: assistantStamp,
+          Status: 'ACTIVE'
+        });
+      } catch (aErr) {
+        console.error('[RAW Copilot] CopilotMessage ASSISTANT insert/update error:', aErr);
+      }
+    }
 
     return sendJSON(res, 200, {
       success: true,
       caseId,
+      conversationId,
+      conversationTitle,
       language,
       answer: copilotResult.answer,
       sources: copilotResult.sources,
@@ -260,14 +449,6 @@ async function runCopilotAnalysis(context, question, history, language = 'en') {
     };
   }
 
-  let modelId = String(process.env.GEMINI_MODEL || 'gemini-3.6-flash').trim();
-  if (modelId.startsWith('models/')) {
-    modelId = modelId.slice(7);
-  }
-
-  const baseUrl = `https://generativelanguage.googleapis.com/v1beta/models/${modelId}:generateContent`;
-  const apiUrl = `${baseUrl}?key=${encodeURIComponent(apiKey)}`;
-
   const caseNo = String(context.caseMaster?.caseNo || 'CASE-RAW-001');
   const isKannada = language === 'kn';
 
@@ -326,106 +507,124 @@ async function runCopilotAnalysis(context, question, history, language = 'en') {
     `INVESTIGATOR QUESTION: ${question}\n\n` +
     `Provide a grounded, accurate, structured JSON answer based strictly on the case context above.`;
 
-  try {
-    const apiResponse = await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        contents: [
-          {
-            role: 'user',
-            parts: [
-              { text: systemInstruction },
-              { text: userPrompt }
-            ]
+  const primaryModel = String(process.env.GEMINI_MODEL || 'gemini-3.6-flash').trim().replace(/^models\//, '');
+  const fallbackModel = 'gemini-3.5-flash';
+  const modelsToTry = [primaryModel, fallbackModel];
+
+  let lastStatus = 0;
+
+  for (let i = 0; i < modelsToTry.length; i++) {
+    const currentModel = modelsToTry[i];
+    const isFallback = i > 0;
+
+    const baseUrl = `https://generativelanguage.googleapis.com/v1beta/models/${currentModel}:generateContent`;
+    const apiUrl = `${baseUrl}?key=${encodeURIComponent(apiKey)}`;
+
+    if (isFallback) {
+      console.log(`[RAW Copilot] Primary model unavailable (${lastStatus}). Attempting fallback.`);
+    }
+
+    try {
+      const apiResponse = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              role: 'user',
+              parts: [
+                { text: systemInstruction },
+                { text: userPrompt }
+              ]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.1,
+            responseMimeType: 'application/json'
           }
-        ],
-        generationConfig: {
-          temperature: 0.1,
-          responseMimeType: 'application/json'
+        }),
+        signal: AbortSignal.timeout(25000)
+      });
+
+      if (!apiResponse.ok) {
+        lastStatus = apiResponse.status;
+        console.error(`[RAW Copilot Provider Error] Model ${currentModel} returned HTTP ${lastStatus}`);
+
+        if (!isFallback && (lastStatus === 429 || lastStatus === 503)) {
+          continue;
         }
-      }),
-      signal: AbortSignal.timeout(25000)
-    });
+        break;
+      }
 
-    if (!apiResponse.ok) {
-      const errorStatus = apiResponse.status;
-      console.error(`[RAW Copilot Provider Error] HTTP ${errorStatus}`);
+      const responseData = await apiResponse.json();
+      const candidateText = responseData?.candidates?.[0]?.content?.parts?.[0]?.text;
 
-      let msg = `RAW Copilot AI service error (HTTP ${errorStatus}).`;
-      if (errorStatus === 429) {
-        msg = 'RAW Copilot service rate limit exceeded. Please try again shortly.';
-      } else if (errorStatus === 503) {
-        msg = 'RAW Copilot service is temporarily overloaded. Please try again.';
+      if (!candidateText) {
+        return {
+          answer: 'RAW Copilot returned empty response content.',
+          sources: []
+        };
+      }
+
+      let cleanJson = String(candidateText).trim();
+      if (cleanJson.startsWith('```json')) {
+        cleanJson = cleanJson.slice(7);
+      }
+      if (cleanJson.startsWith('```')) {
+        cleanJson = cleanJson.slice(3);
+      }
+      if (cleanJson.endsWith('```')) {
+        cleanJson = cleanJson.slice(0, -3);
+      }
+      cleanJson = cleanJson.trim();
+
+      let parsed;
+      try {
+        parsed = JSON.parse(cleanJson);
+      } catch (parseErr) {
+        console.error('[RAW Copilot JSON Error] Could not parse model response:', parseErr.message);
+        return {
+          answer: cleanJson || 'Unable to parse Copilot response.',
+          sources: []
+        };
+      }
+
+      const answer = String(parsed.answer || parsed.response || 'No answer generated.').trim();
+      const rawSources = Array.isArray(parsed.sources) ? parsed.sources : [];
+      const sources = rawSources
+        .filter((s) => s && typeof s === 'object')
+        .map((s) => ({
+          type: String(s.type || 'EVIDENCE').toUpperCase().trim().replace(/[^A-Z_]/g, ''),
+          reference: String(s.reference || s.name || s.file || 'Case Record').trim().replace(/^[0-9]{15,20}$/, 'Evidence File')
+        }));
+
+      if (isFallback) {
+        console.log('[RAW Copilot] Fallback model completed request.');
       }
 
       return {
-        answer: msg,
-        sources: []
+        answer,
+        sources,
+        relatedEntities: Array.isArray(parsed.relatedEntities) ? parsed.relatedEntities : [],
+        relevantTimelineEvents: Array.isArray(parsed.relevantTimelineEvents) ? parsed.relevantTimelineEvents : [],
+        confidenceNote: parsed.confidenceNote || null
       };
+    } catch (netErr) {
+      console.error(`[RAW Copilot Exception] Model ${currentModel} error:`, netErr.message);
+      lastStatus = 500;
+      if (!isFallback) {
+        continue;
+      }
+      break;
     }
-
-    const responseData = await apiResponse.json();
-    const candidateText = responseData?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-    if (!candidateText) {
-      return {
-        answer: 'RAW Copilot returned empty response content.',
-        sources: []
-      };
-    }
-
-    let cleanJson = String(candidateText).trim();
-    if (cleanJson.startsWith('```json')) {
-      cleanJson = cleanJson.slice(7);
-    }
-    if (cleanJson.startsWith('```')) {
-      cleanJson = cleanJson.slice(3);
-    }
-    if (cleanJson.endsWith('```')) {
-      cleanJson = cleanJson.slice(0, -3);
-    }
-    cleanJson = cleanJson.trim();
-
-    let parsed;
-    try {
-      parsed = JSON.parse(cleanJson);
-    } catch (parseErr) {
-      console.error('[RAW Copilot JSON Error] Could not parse model response:', parseErr.message);
-      return {
-        answer: cleanJson || 'Unable to parse Copilot response.',
-        sources: []
-      };
-    }
-
-    const answer = String(parsed.answer || parsed.response || 'No answer generated.').trim();
-    const rawSources = Array.isArray(parsed.sources) ? parsed.sources : [];
-    const sources = rawSources
-      .filter((s) => s && typeof s === 'object')
-      .map((s) => ({
-        type: String(s.type || 'EVIDENCE').toUpperCase().trim().replace(/[^A-Z_]/g, ''),
-        reference: String(s.reference || s.name || s.file || 'Case Record').trim().replace(/^[0-9]{15,20}$/, 'Evidence File')
-      }));
-
-    return {
-      answer,
-      sources,
-      relatedEntities: Array.isArray(parsed.relatedEntities) ? parsed.relatedEntities : [],
-      relevantTimelineEvents: Array.isArray(parsed.relevantTimelineEvents) ? parsed.relevantTimelineEvents : []
-    };
-  } catch (netErr) {
-    const isTimeout = netErr.name === 'AbortError' || netErr.name === 'TimeoutError';
-    console.error('[RAW Copilot Network Error]', netErr.message);
-
-    return {
-      answer: isTimeout
-        ? 'RAW Copilot request timed out after 25 seconds. Please try again.'
-        : 'Network communication failure with RAW Copilot service.',
-      sources: []
-    };
   }
+
+  return {
+    answer: 'RAW Copilot service is temporarily unavailable. Please try again shortly.',
+    sources: []
+  };
 }
 
 function parseJSONSafely(input) {
