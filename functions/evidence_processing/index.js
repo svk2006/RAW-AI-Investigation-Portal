@@ -302,7 +302,11 @@ module.exports = async (req, res) => {
     // -----------------------------------------------------------------
     // AI INSIGHT REVIEW ACTION
     // -----------------------------------------------------------------
-    if (action === 'review_ai_insight' || action === 'review') {
+    if (
+      action === 'review_ai_insight' ||
+      action === 'review' ||
+      action === 'reviewinsight'
+    ) {
       const parsedBody =
         typeof requestBody === 'object' && !Buffer.isBuffer(requestBody)
           ? requestBody
@@ -349,6 +353,7 @@ module.exports = async (req, res) => {
         Status: decision
       });
 
+      const updatedInsight = await insightTable.getRow(insightId);
       const updatedInsights = await getAIInsights(
         datastore,
         insightRow.EvidenceID,
@@ -360,6 +365,7 @@ module.exports = async (req, res) => {
         insightId,
         decision,
         evidenceId: String(insightRow.EvidenceID),
+        insight: updatedInsight,
         insights: updatedInsights
       });
     }
