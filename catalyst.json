@@ -4,7 +4,8 @@
       "raw_investigation_platform_function",
       "evidence_upload",
       "evidence_retrieval",
-      "evidence_processing"
+      "evidence_processing",
+      "raw_copilot"
     ],
     "ignore": [],
     "source": "functions"
