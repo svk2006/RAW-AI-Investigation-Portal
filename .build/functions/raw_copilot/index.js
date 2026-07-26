@@ -2,6 +2,7 @@
 
 const catalyst = require('zcatalyst-sdk-node');
 const { PERMISSIONS, authenticateAndAuthorize } = require('./rawAuth');
+const { logAuditEvent } = require('./auditLogger');
 const { Readable } = require('stream');
 
 const BUCKET_NAME = 'raw-evidence-vault';
@@ -52,6 +53,25 @@ module.exports = async (req, res) => {
       return sendJSON(res, auth.status, {
         success: false,
         error: auth.error
+      });
+    }
+
+    // ACTION: auditExport
+    if (action === 'auditExport') {
+      await logAuditEvent({
+        app,
+        caseMasterId: String(caseId),
+        employeeKGID: auth.employee.kgid,
+        action: 'COPILOT_EXPORT',
+        resourceType: 'RAW_COPILOT',
+        resourceId: String(parsedBody.conversationId || ''),
+        description: 'Exported RAW Copilot conversation PDF transcript',
+        status: 'SUCCESS'
+      });
+
+      return sendJSON(res, 200, {
+        success: true,
+        message: 'Copilot export audit event logged'
       });
     }
 
@@ -268,6 +288,17 @@ module.exports = async (req, res) => {
         console.error('[RAW Copilot] CopilotMessage ASSISTANT insert/update error:', aErr);
       }
     }
+
+    await logAuditEvent({
+      app,
+      caseMasterId: String(caseId),
+      employeeKGID: auth.employee.kgid,
+      action: 'COPILOT_QUERY',
+      resourceType: 'RAW_COPILOT',
+      resourceId: String(conversationId),
+      description: 'Submitted grounded RAW Copilot investigation query',
+      status: 'SUCCESS'
+    });
 
     return sendJSON(res, 200, {
       success: true,

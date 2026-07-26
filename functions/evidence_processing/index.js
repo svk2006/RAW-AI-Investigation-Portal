@@ -7,6 +7,7 @@ const crypto = require('crypto');
 const { Readable } = require('stream');
 const catalyst = require('zcatalyst-sdk-node');
 const { PERMISSIONS, authenticateAndAuthorize } = require('./rawAuth');
+const { logAuditEvent } = require('./auditLogger');
 
 // pdf-parse is required for PDF text extraction (Option B).
 // It must be installed via: npm install pdf-parse
@@ -209,6 +210,17 @@ module.exports = async (req, res) => {
           });
         }
 
+        await logAuditEvent({
+          app,
+          caseMasterId: String(dlRow.CaseMasterID),
+          employeeKGID: auth.employee.kgid,
+          action: action === 'preview' ? 'EVIDENCE_VIEW' : 'EVIDENCE_DOWNLOAD',
+          resourceType: 'EVIDENCE',
+          resourceId: String(evidenceId),
+          description: `${action === 'preview' ? 'Previewed' : 'Downloaded original'} evidence file ${dlFileName}`,
+          status: 'SUCCESS'
+        });
+
         // Pipe Stratus stream directly to response — never expose dlKey or URL
         if (typeof dlStream.pipe === 'function') {
           dlStream.pipe(res);
@@ -377,6 +389,17 @@ module.exports = async (req, res) => {
         null
       );
 
+      await logAuditEvent({
+        app,
+        caseMasterId: String(insightRow.CaseMasterID),
+        employeeKGID: auth.employee ? auth.employee.kgid : 'POL100821',
+        action: decision === 'ACCEPTED' ? 'AI_INSIGHT_ACCEPT' : 'AI_INSIGHT_REJECT',
+        resourceType: 'AI_INSIGHT',
+        resourceId: String(insightId),
+        description: `${decision === 'ACCEPTED' ? 'Accepted' : 'Rejected'} AI Insight: ${insightRow.Title || insightId}`,
+        status: 'SUCCESS'
+      });
+
       return sendJSON(res, 200, {
         success: true,
         insightId,
@@ -425,13 +448,24 @@ module.exports = async (req, res) => {
       const providerResult = await runAIAnalysis(context);
 
       if (providerResult.providerStatus !== 'SUCCESS') {
-        return sendJSON(res, 200, {
-          success: true,
-          evidenceId,
-          providerStatus: providerResult.providerStatus,
-          message: providerResult.message,
-          insights: await getAIInsights(datastore, evidenceId, null)
-        });
+        await logAuditEvent({
+        app,
+        caseMasterId: String(evidenceRow.CaseMasterID),
+        employeeKGID: auth.employee.kgid,
+        action: 'AI_ANALYSIS',
+        resourceType: 'EVIDENCE',
+        resourceId: String(evidenceId),
+        description: `Executed AI-assisted evidence analysis on ${evidenceRow.OriginalFileName || evidenceId}`,
+        status: 'SUCCESS'
+      });
+
+      return sendJSON(res, 200, {
+        success: true,
+        evidenceId,
+        providerStatus: providerResult.providerStatus,
+        message: providerResult.message,
+        insights: await getAIInsights(datastore, evidenceId, null)
+      });
       }
 
       // Retrieve existing insights for deduplication check

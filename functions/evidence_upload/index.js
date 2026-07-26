@@ -5,6 +5,7 @@ const crypto = require('crypto');
 const { Readable } = require('stream');
 const catalyst = require('zcatalyst-sdk-node');
 const { PERMISSIONS, authenticateAndAuthorize } = require('./rawAuth');
+const { logAuditEvent } = require('./auditLogger');
 
 module.exports = async (req, res) => {
 	try {
@@ -351,7 +352,9 @@ module.exports = async (req, res) => {
 						),
 
 					UploadedBy:
-						'Development Investigator',
+						String(
+							auth.employee ? auth.employee.firstName : 'A. Kumar'
+						),
 
 					UploadedAt:
 						uploadedAt,
@@ -441,6 +444,22 @@ module.exports = async (req, res) => {
 					'Evidence CREATEDTIME:',
 					insertedRow.CREATEDTIME
 				);
+
+				console.log(
+					'Evidence record created in Data Store:',
+					insertedRow
+				);
+
+				await logAuditEvent({
+					app,
+					caseMasterId: String(fields.caseId),
+					employeeKGID: auth.employee.kgid,
+					action: 'EVIDENCE_UPLOAD',
+					resourceType: 'EVIDENCE',
+					resourceId: String(insertedRow.ROWID),
+					description: `Uploaded evidence file ${uploadedFile.originalFileName}`,
+					status: 'SUCCESS'
+				});
 
 				console.log(
 					'Evidence UploadedAt:',
